@@ -9,14 +9,15 @@ oclif example Hello World CLI
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
 <!-- toc -->
-* [RNERATOR](#rnerator)
-* [Usage](#usage)
-* [Commands](#commands)
+
+- [Usage](#usage)
+- [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g rnerator
 $ rnerator COMMAND
@@ -28,312 +29,50 @@ USAGE
   $ rnerator COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`rnerator generate NAME`](#rnerator-generate-name)
-* [`rnerator help [COMMAND]`](#rnerator-help-command)
-* [`rnerator init`](#rnerator-init)
-* [`rnerator plugins`](#rnerator-plugins)
-* [`rnerator plugins:install PLUGIN...`](#rnerator-pluginsinstall-plugin)
-* [`rnerator plugins:inspect PLUGIN...`](#rnerator-pluginsinspect-plugin)
-* [`rnerator plugins:install PLUGIN...`](#rnerator-pluginsinstall-plugin-1)
-* [`rnerator plugins:link PLUGIN`](#rnerator-pluginslink-plugin)
-* [`rnerator plugins:uninstall PLUGIN...`](#rnerator-pluginsuninstall-plugin)
-* [`rnerator plugins:uninstall PLUGIN...`](#rnerator-pluginsuninstall-plugin-1)
-* [`rnerator plugins:uninstall PLUGIN...`](#rnerator-pluginsuninstall-plugin-2)
-* [`rnerator plugins update`](#rnerator-plugins-update)
 
-## `rnerator generate NAME`
-
-Generate a new element
-
-```
-USAGE
-  $ rnerator generate [NAME] [-t <value>] [-l <value>]
-
-ARGUMENTS
-  NAME  component Name
-
-FLAGS
-  -l, --location=<value>  location of the component generated
-  -t, --template=<value>  [default: component] template used for the component generated
-
-DESCRIPTION
-  Generate a new element
-
-EXAMPLES
-  $ rnerator generate <name> --template <template>
-```
-
-_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.2.0/dist/commands/generate/index.ts)_
-
-## `rnerator help [COMMAND]`
-
-Display help for rnerator.
-
-```
-USAGE
-  $ rnerator help [COMMAND] [-n]
-
-ARGUMENTS
-  COMMAND  Command to show help for.
-
-FLAGS
-  -n, --nested-commands  Include all nested commands in the output.
-
-DESCRIPTION
-  Display help for rnerator.
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.10/src/commands/help.ts)_
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator generate [NAME] [--template]`](#rnerator-generate-name---template)
 
 ## `rnerator init`
 
-Initialize a new project
+set up the cli for your project
 
 ```
 USAGE
-  $ rnerator init
+  $ rnerator init [PERSON] -f <value>
 
 DESCRIPTION
-  Initialize a new project
+  set up the cli for your project
 
 EXAMPLES
   $ rnerator init
 ```
 
-_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.2.0/dist/commands/init/index.ts)_
+## `rnerator generate [NAME] [--template]`
 
-## `rnerator plugins`
-
-List installed plugins.
+generate a component from a template
 
 ```
 USAGE
-  $ rnerator plugins [--core]
-
-FLAGS
-  --core  Show core plugins.
+  $ rnerator generate [NAME] [--template]
 
 DESCRIPTION
-  List installed plugins.
+  generate a component from a template
 
+FLAGS
+  -t, --template template selected for the generation
 EXAMPLES
-  $ rnerator plugins
+  $ rnerator generate Test --template=component
+  hello world! (./src/commands/hello/world.ts)
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/index.ts)_
-
-## `rnerator plugins:install PLUGIN...`
-
-Installs a plugin into the CLI.
-
-```
-USAGE
-  $ rnerator plugins:install PLUGIN...
-
-ARGUMENTS
-  PLUGIN  Plugin to install.
-
-FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Installs a plugin into the CLI.
-
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-ALIASES
-  $ rnerator plugins add
-
-EXAMPLES
-  $ rnerator plugins:install myplugin 
-
-  $ rnerator plugins:install https://github.com/someuser/someplugin
-
-  $ rnerator plugins:install someuser/someplugin
-```
-
-## `rnerator plugins:inspect PLUGIN...`
-
-Displays installation properties of a plugin.
-
-```
-USAGE
-  $ rnerator plugins:inspect PLUGIN...
-
-ARGUMENTS
-  PLUGIN  [default: .] Plugin to inspect.
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Displays installation properties of a plugin.
-
-EXAMPLES
-  $ rnerator plugins:inspect myplugin
-```
-
-## `rnerator plugins:install PLUGIN...`
-
-Installs a plugin into the CLI.
-
-```
-USAGE
-  $ rnerator plugins:install PLUGIN...
-
-ARGUMENTS
-  PLUGIN  Plugin to install.
-
-FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Installs a plugin into the CLI.
-
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-ALIASES
-  $ rnerator plugins add
-
-EXAMPLES
-  $ rnerator plugins:install myplugin 
-
-  $ rnerator plugins:install https://github.com/someuser/someplugin
-
-  $ rnerator plugins:install someuser/someplugin
-```
-
-## `rnerator plugins:link PLUGIN`
-
-Links a plugin into the CLI for development.
-
-```
-USAGE
-  $ rnerator plugins:link PLUGIN
-
-ARGUMENTS
-  PATH  [default: .] path to plugin
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Links a plugin into the CLI for development.
-
-  Installation of a linked plugin will override a user-installed or core plugin.
-
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
-  command will override the user-installed or core plugin implementation. This is useful for development work.
-
-EXAMPLES
-  $ rnerator plugins:link myplugin
-```
-
-## `rnerator plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ rnerator plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ rnerator plugins unlink
-  $ rnerator plugins remove
-```
-
-## `rnerator plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ rnerator plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ rnerator plugins unlink
-  $ rnerator plugins remove
-```
-
-## `rnerator plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ rnerator plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ rnerator plugins unlink
-  $ rnerator plugins remove
-```
-
-## `rnerator plugins update`
-
-Update installed plugins.
-
-```
-USAGE
-  $ rnerator plugins update [-h] [-v]
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Update installed plugins.
-```
 <!-- commandsstop -->
