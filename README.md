@@ -20,7 +20,7 @@ $ npm install -g rnerator
 $ rnerator COMMAND
 running command...
 $ rnerator (--version)
-rnerator/0.0.0 darwin-arm64 node-v18.4.0
+rnerator/0.1.0 darwin-arm64 node-v18.4.0
 $ rnerator --help [COMMAND]
 USAGE
   $ rnerator COMMAND
@@ -64,7 +64,7 @@ EXAMPLES
   hello friend from oclif! (./src/commands/hello/index.ts)
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.0.0/dist/commands/hello/index.ts)_
+_See code: [dist/commands/hello/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.1.0/dist/commands/hello/index.ts)_
 
 ## `rnerator hello world`
 
