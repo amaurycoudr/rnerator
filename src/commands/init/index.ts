@@ -31,9 +31,9 @@ export default class Init extends Command {
   static initSrcFolder(): void {
     makeStep(
       {
-        stepName: 'SETUP SRC FOLDER',
-        stepNumber: 1,
-        stepTotal: Init.stepsNumber,
+        name: 'SETUP SRC FOLDER',
+        number: 1,
+        total: Init.stepsNumber,
       },
       Init.handelDirCreation('')
     );
@@ -42,9 +42,9 @@ export default class Init extends Command {
   static initTemplateFolder(): void {
     makeStep(
       {
-        stepName: 'SET UP TEMPLATE FOLDER',
-        stepNumber: 2,
-        stepTotal: Init.stepsNumber,
+        name: 'SET UP TEMPLATE FOLDER',
+        number: 2,
+        total: Init.stepsNumber,
       },
       () => {
         Init.handelDirCreation(TEMPLATES)();
@@ -60,9 +60,9 @@ export default class Init extends Command {
   static initComponentFolder(): void {
     makeStep(
       {
-        stepName: 'SET UP COMPONENT FOLDER',
-        stepNumber: 3,
-        stepTotal: Init.stepsNumber,
+        name: 'SET UP COMPONENT FOLDER',
+        number: 3,
+        total: Init.stepsNumber,
       },
       Init.handelDirCreation(COMPONENTS)
     );
@@ -71,9 +71,9 @@ export default class Init extends Command {
   static initSandBoxFolder(): void {
     makeStep(
       {
-        stepName: 'SET UP SANDBOX FOLDER',
-        stepNumber: 4,
-        stepTotal: Init.stepsNumber,
+        name: 'SET UP SANDBOX FOLDER',
+        number: 4,
+        total: Init.stepsNumber,
       },
       Init.handelDirCreation(SANDBOX)
     );

@@ -28,12 +28,12 @@ export const copyFolder = (src: string, dest: string, shortPath?: string) => {
   logUpdated(shortPath ?? dest);
 };
 export const makeStep = (
-  config: { stepName: string; stepNumber: number; stepTotal: number },
+  config: { name: string; number: number; total: number },
   step: () => void
 ) => {
-  logStepStart(config.stepName, config.stepNumber, config.stepTotal);
+  logStepStart(config.name, config.number, config.total);
   step();
-  logStepSuccess(config.stepNumber, config.stepTotal);
+  logStepSuccess(config.number, config.total);
 };
 
 export const throwIfExists = (dir: string, shortPath?: string): void => {
