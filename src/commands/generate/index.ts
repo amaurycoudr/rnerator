@@ -2,8 +2,7 @@ import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
 import { writeFile } from 'fs';
 import { compile } from 'handlebars';
-import process from 'process';
-import { PATH } from '../../helpers/const';
+import { ENTRY, ORIGIN, PATH } from '../../helpers/const';
 import { createDir, throwIfExists } from '../../helpers/folder';
 import { logCreated } from '../../helpers/logger';
 
@@ -30,14 +29,16 @@ export default class Generate extends Command {
       char: 'l',
       description: 'location of the component generated',
     }),
+    noSandBox: Flags.boolean({
+      char: 's',
+      description: 'disabled the creation of a sandbox file',
+      default: false,
+    }),
   };
 
-  async getTemplate() {
-    const { flags } = await this.parse(Generate);
+  static async getTemplate(name: string) {
     try {
-      return (
-        await import(`${process.cwd()}/results/templates/${flags.template}`)
-      ).default;
+      return (await import(`${PATH}/templates/${name}`)).default;
     } catch (err) {
       throw new Error(
         `❌  ${chalk.red(
@@ -47,19 +48,62 @@ export default class Generate extends Command {
     }
   }
 
-  async getNames() {
+  async run(): Promise<void> {
+    const {
+      folderName,
+      fileName,
+      completePath,
+      name,
+      template,
+      noSandBox,
+      sandboxPath,
+      sandboxPathShort,
+    } = await this.getArgs();
+
+    throwIfExists(completePath, fileName);
+
+    createDir(`${ORIGIN}/${folderName}`, { silent: true });
+
+    const component = Generate.compileTemplate(
+      await Generate.getTemplate(template),
+      { name }
+    );
+
+    const sandbox =
+      !noSandBox &&
+      Generate.compileTemplate(await Generate.getTemplate('sandbox'), {
+        name,
+      });
+
+    Generate.generateFile(completePath, component, fileName);
+    if (sandbox) {
+      Generate.generateFile(sandboxPath, sandbox, sandboxPathShort);
+    }
+  }
+
+  async getArgs() {
     const { args, flags } = await this.parse(Generate);
-    const location = flags.location || flags.template;
     const { name } = args;
-    const folderName = `/${location}s/${name}`;
+    const { template, noSandBox } = flags;
+    const location = flags.location || flags.template;
+
+    const folderName = `${ENTRY}/${location}s/${name}`;
+
     const fileName = `${folderName}/${name}.tsx`;
-    const completePath = `${PATH}/${fileName}`;
+    const sandboxPathShort = `${folderName}/${name}.sandbox.tsx`;
+
+    const completePath = `${ORIGIN}/${fileName}`;
+    const sandboxPath = `${ORIGIN}/${sandboxPathShort}`;
 
     return {
       folderName,
       fileName,
       completePath,
       name,
+      template,
+      noSandBox,
+      sandboxPath,
+      sandboxPathShort,
     };
   }
 
@@ -81,18 +125,5 @@ export default class Generate extends Command {
         logCreated(`${shortPath}`);
       }
     });
-  }
-
-  async run(): Promise<void> {
-    const { folderName, fileName, completePath, name } = await this.getNames();
-
-    throwIfExists(completePath, fileName);
-
-    createDir(`${PATH}/${folderName}`, { silent: true });
-
-    const content = Generate.compileTemplate(await this.getTemplate(), {
-      name,
-    });
-    Generate.generateFile(completePath, content, fileName);
   }
 }

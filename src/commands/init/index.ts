@@ -16,22 +16,34 @@ export default class Init extends Command {
 
   static examples = [`$ rnerator init`];
 
-  static stepsNumber = 3;
+  static stepsNumber = 4;
 
   async run() {
     this.log(gradient.summer('\nWelcome to RNERATOR !\n'));
     this.log(gradient.summer("\nLet's get started !\n"));
+    Init.initSrcFolder();
     Init.initTemplateFolder();
     Init.initComponentFolder();
     Init.initSandBoxFolder();
     this.log(`${chalk.green('⭐ Finished ⭐')}`);
   }
 
+  static initSrcFolder(): void {
+    makeStep(
+      {
+        stepName: 'SETUP SRC FOLDER',
+        stepNumber: 1,
+        stepTotal: Init.stepsNumber,
+      },
+      Init.handelDirCreation('')
+    );
+  }
+
   static initTemplateFolder(): void {
     makeStep(
       {
         stepName: 'SET UP TEMPLATE FOLDER',
-        stepNumber: 1,
+        stepNumber: 2,
         stepTotal: Init.stepsNumber,
       },
       () => {
@@ -49,7 +61,7 @@ export default class Init extends Command {
     makeStep(
       {
         stepName: 'SET UP COMPONENT FOLDER',
-        stepNumber: 2,
+        stepNumber: 3,
         stepTotal: Init.stepsNumber,
       },
       Init.handelDirCreation(COMPONENTS)
@@ -60,7 +72,7 @@ export default class Init extends Command {
     makeStep(
       {
         stepName: 'SET UP SANDBOX FOLDER',
-        stepNumber: 3,
+        stepNumber: 4,
         stepTotal: Init.stepsNumber,
       },
       Init.handelDirCreation(SANDBOX)

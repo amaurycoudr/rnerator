@@ -16,6 +16,7 @@ export const createDir = (
 ): void => {
   const { silent, shortPath } = { silent: false, ...config };
   const logName = shortPath ?? dir;
+
   if (!existsSync(dir)) {
     mkdirSync(dir);
     if (!silent) logCreated(logName);
