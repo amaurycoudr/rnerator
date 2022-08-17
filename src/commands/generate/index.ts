@@ -1,20 +1,19 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
 import { compile } from 'handlebars';
-import { ENTRY, ORIGIN, PATH } from '../../helpers/const';
+import { ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
 import {
-  createDir,
+  createFileAndLint,
+  createFolder,
   throwIfExists,
-  updateFileAndLint,
 } from '../../helpers/folder';
-import { logCreated } from '../../helpers/logger';
 import { updateSandBoxFile } from '../../helpers/sandbox';
 
 export default class Generate extends Command {
   static description = 'Generate a new element';
 
   static examples = [
-    `$ rnerator generate ${chalk.blue('<name>')} --template ${chalk.blue(
+    `$ rnerator generate ${chalk.blue('<name>')} --template=${chalk.blue(
       '<template>'
     )}`,
   ];
@@ -33,82 +32,77 @@ export default class Generate extends Command {
       char: 'l',
       description: 'location of the component generated',
     }),
-    noSandBox: Flags.boolean({
-      char: 's',
+    noSandbox: Flags.boolean({
+      char: 'n',
       description: 'disabled the creation of a sandbox file',
       default: false,
     }),
   };
 
-  static async getTemplate(name: string) {
-    try {
-      return (await import(`${PATH}/templates/${name}`)).default;
-    } catch (err) {
-      throw new Error(
-        `❌  ${chalk.red(
-          'TEMPLATE NOT FOUND OR INVALID \nThe template  file must have a string in export by default'
-        )}`
-      );
-    }
-  }
-
   async run(): Promise<void> {
     const {
       folderName,
       fileName,
-      completePath,
+      originFolder,
       name,
       template,
-      noSandBox,
+      noSandbox,
       sandboxPath,
-      sandboxPathShort,
     } = await this.getArgs();
 
-    throwIfExists(completePath, fileName);
-
-    createDir(`${ORIGIN}/${folderName}`, { silent: true });
+    throwIfExists(fileName);
+    createFolder(originFolder, { silent: true });
+    createFolder(folderName, { silent: true });
 
     const component = Generate.compileTemplate(
       await Generate.getTemplate(template),
       { name }
     );
+    createFileAndLint(fileName, component);
 
-    const sandbox =
-      !noSandBox &&
-      Generate.compileTemplate(await Generate.getTemplate('sandbox'), {
-        name,
-      });
-
-    Generate.generateFile(completePath, component, fileName);
-    if (sandbox) {
-      Generate.generateFile(sandboxPath, sandbox, sandboxPathShort);
+    if (!noSandbox) {
+      const sandbox = Generate.compileTemplate(
+        await Generate.getTemplate('sandbox'),
+        { name }
+      );
+      createFileAndLint(sandboxPath, sandbox);
+      updateSandBoxFile();
     }
-    updateSandBoxFile();
+  }
+
+  async getCliArgs() {
+    const { args, flags } = await this.parse(Generate);
+    const { name } = args;
+    const { template, noSandbox, location } = flags;
+    return { name, template, noSandbox, location };
+  }
+
+  async getTemplateConfig() {
+    const { template } = await this.getCliArgs();
+    const { config } = await import(`${ENTRY}/${TEMPLATES}/${template}`);
+    if (!config) throw Generate.errorTemplateNotFound();
+    return config as { location: string; noSandbox: string };
   }
 
   async getArgs() {
-    const { args, flags } = await this.parse(Generate);
-    const { name } = args;
-    const { template, noSandBox } = flags;
-    const location = flags.location || flags.template;
+    const { name, template, noSandbox, location } = await this.getCliArgs();
+    const { location: templateLocation, noSandbox: templateNoSandbox } =
+      await this.getTemplateConfig();
 
-    const folderName = `${ENTRY}/${location}s/${name}`;
+    const originFolder = `${ENTRY}/${location ?? templateLocation}`;
 
+    const folderName = `${originFolder}/${name}`;
     const fileName = `${folderName}/${name}.tsx`;
-    const sandboxPathShort = `${folderName}/${name}.sandbox.tsx`;
-
-    const completePath = `${ORIGIN}/${fileName}`;
-    const sandboxPath = `${ORIGIN}/${sandboxPathShort}`;
+    const sandboxPath = `${folderName}/${name}.${SANDBOX}.tsx`;
 
     return {
       folderName,
+      originFolder,
       fileName,
-      completePath,
       name,
       template,
-      noSandBox,
+      noSandbox: noSandbox ?? templateNoSandbox,
       sandboxPath,
-      sandboxPathShort,
     };
   }
 
@@ -116,15 +110,25 @@ export default class Generate extends Command {
     try {
       return compile(template, { strict: true })(data);
     } catch (error) {
-      throw new Error(
-        // @ts-ignore
-        `❌  ${chalk.red('INVALID TEMPLATE')}`
-      );
+      throw new Error(`❌  ${chalk.red('INVALID TEMPLATE')}`);
     }
   }
 
-  static generateFile(path: string, content: string, shortPath: string): void {
-    updateFileAndLint(path, content);
-    logCreated(shortPath);
+  static async getTemplate(name: string) {
+    try {
+      return (await import(`${ENTRY}/${TEMPLATES}/${name}`)).default;
+    } catch (err) {
+      throw Generate.errorTemplateNotFound();
+    }
+  }
+
+  static errorTemplateNotFound() {
+    return new Error(
+      `❌  ${chalk.red(
+        'TEMPLATE NOT FOUND OR INVALID' +
+          '\nThe template  file must have a string in export by default' +
+          '\nand export a config object with the location and noSandBox properties'
+      )}`
+    );
   }
 }

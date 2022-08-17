@@ -8,46 +8,39 @@ import {
 } from 'fs';
 import { copySync } from 'fs-extra';
 import { join } from 'path';
+import { ENTRY } from './const';
 
-import {
-  getStyledError,
-  logCreated,
-  logStepStart,
-  logStepSuccess,
-  logSubStep,
-  logUpdated,
-} from './logger';
+import { getStyledError, logCreated, logSubStep, logUpdated } from './logger';
 
-export const createDir = (
-  dir: string,
+export const createFolder = (
+  path: string,
   config?: { silent?: boolean; shortPath?: string }
 ): void => {
   const { silent, shortPath } = { silent: false, ...config };
-  const logName = shortPath ?? dir;
+  const logName = shortPath ?? path;
 
-  if (!existsSync(dir)) {
-    mkdirSync(dir);
+  if (!existsSync(path)) {
+    mkdirSync(path);
     if (!silent) logCreated(logName);
   } else if (!silent) logSubStep(`${logName} folder already exists`);
 };
 
-export const copyFolder = (src: string, dest: string, shortPath?: string) => {
-  copySync(src, dest);
-  logUpdated(shortPath ?? dest);
-};
-export const makeStep = <T>(
-  config: { name: string; number: number; total: number },
-  step: () => T
+const getPath = (name: string) => `${ENTRY}/${name}`;
+
+const copyFolder = (
+  name: string,
+
+  config: { overWrite?: boolean } = {}
 ) => {
-  logStepStart(config.name, config.number, config.total);
-  const result = step();
-  logStepSuccess(config.number, config.total);
-  return result;
+  copySync(`${__dirname}/../${name}`, getPath(name), {
+    overwrite: config.overWrite ?? false,
+  });
+  logUpdated(getPath(name));
 };
 
-export const throwIfExists = (dir: string, shortPath?: string): void => {
+export const throwIfExists = (dir: string): void => {
   if (existsSync(dir)) {
-    throw new Error(getStyledError(`${shortPath ?? dir} already exists`));
+    throw new Error(getStyledError(`${dir} already exists`));
   }
 };
 
@@ -59,7 +52,27 @@ export const parseAFolder = (directory: string, files: string[]) => {
   });
 };
 
-export const updateFileAndLint = (file: string, content: string) => {
+const execEslint = (path: string) => {
+  exec(`yarn run eslint --fix ${path}`);
+};
+const writeFileAndLint = (file: string, content: string) => {
   writeFileSync(file, content);
-  exec(`yarn run eslint --fix ${file}`);
+  execEslint(file);
+};
+export const createFileAndLint = (file: string, content: string) => {
+  writeFileAndLint(file, content);
+  logCreated(file);
+};
+export const updateFileAndLint = (file: string, content: string) => {
+  writeFileAndLint(file, content);
+  logUpdated(file);
+};
+
+export const createAndCopyFolder = (
+  name: string,
+  config: { overWrite?: boolean } = {}
+) => {
+  createFolder(getPath(name));
+  copyFolder(name, config);
+  execEslint(getPath(name));
 };

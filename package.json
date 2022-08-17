@@ -1,7 +1,7 @@
 {
   "name": "rnerator",
   "version": "0.2.0",
-  "description": "component generator for React Native",
+  "description": "Component generator for React Native, with a Sandbox environment",
   "author": "amaurycoudr @amaurycoudr",
   "bin": {
     "rnerator": "./bin/run"
@@ -64,11 +64,7 @@
       "@oclif/plugin-plugins"
     ],
     "topicSeparator": " ",
-    "topics": {
-      "hello": {
-        "description": "Say hello to the world and others"
-      }
-    }
+    "topics": {}
   },
   "scripts": {
     "build": "shx rm -rf dist && tsc -b",

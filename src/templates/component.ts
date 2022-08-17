@@ -9,4 +9,9 @@ const componentTemplate =
   '\n)}' +
   '\nexport default {{name}}';
 
+export const config = {
+  location: 'components',
+  noSandBox: false,
+};
+
 export default componentTemplate;

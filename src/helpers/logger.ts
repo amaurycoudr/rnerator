@@ -28,3 +28,13 @@ export const logCreated = (dir: string) => {
 export const logUpdated = (dir: string) => {
   logSubStep(`${chalk.blue('UPDATED')} ${dir}`);
 };
+
+export const makeStep = <T>(
+  config: { name: string; number: number; total: number },
+  step: () => T
+) => {
+  logStepStart(config.name, config.number, config.total);
+  const result = step();
+  logStepSuccess(config.number, config.total);
+  return result;
+};
