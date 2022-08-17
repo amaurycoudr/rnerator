@@ -7,6 +7,7 @@ import {
   createFolder,
   throwIfExists,
 } from '../../helpers/folder';
+import { getCreated, getUpdated } from '../../helpers/logger';
 import { updateSandBoxFile } from '../../helpers/sandbox';
 
 export default class Generate extends Command {
@@ -16,6 +17,10 @@ export default class Generate extends Command {
     `$ rnerator generate ${chalk.blue('<name>')} --template=${chalk.blue(
       '<template>'
     )}`,
+    `$ rnerator generate ${chalk.blue('Test')}\n` +
+      `${getCreated('src/components/Test/Test.tsx')}\n` +
+      `${getCreated('src/components/Test/Test.sandbox.tsx')}\n` +
+      `${getUpdated('src/sandbox/sandboxFiles.ts')}\n`,
   ];
 
   static args = [
@@ -79,7 +84,9 @@ export default class Generate extends Command {
 
   async getTemplateConfig() {
     const { template } = await this.getCliArgs();
-    const { config } = await import(`${ENTRY}/${TEMPLATES}/${template}`);
+    const { config } = await import(
+      `${process.cwd()}/${ENTRY}/${TEMPLATES}/${template}`
+    );
     if (!config) throw Generate.errorTemplateNotFound();
     return config as { location: string; noSandbox: string };
   }
@@ -116,7 +123,8 @@ export default class Generate extends Command {
 
   static async getTemplate(name: string) {
     try {
-      return (await import(`${ENTRY}/${TEMPLATES}/${name}`)).default;
+      return (await import(`${process.cwd()}/${ENTRY}/${TEMPLATES}/${name}`))
+        .default;
     } catch (err) {
       throw Generate.errorTemplateNotFound();
     }
