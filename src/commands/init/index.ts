@@ -75,7 +75,14 @@ export default class Init extends Command {
         number: 4,
         total: Init.stepsNumber,
       },
-      Init.handelDirCreation(SANDBOX)
+      () => {
+        Init.handelDirCreation(SANDBOX)();
+        copyFolder(
+          `${__dirname}/../../${SANDBOX}`,
+          `${PATH}/${SANDBOX}`,
+          `${ENTRY}/${SANDBOX}`
+        );
+      }
     );
   }
 

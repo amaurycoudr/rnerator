@@ -1,10 +1,14 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { writeFile } from 'fs';
 import { compile } from 'handlebars';
 import { ENTRY, ORIGIN, PATH } from '../../helpers/const';
-import { createDir, throwIfExists } from '../../helpers/folder';
+import {
+  createDir,
+  throwIfExists,
+  updateFileAndLint,
+} from '../../helpers/folder';
 import { logCreated } from '../../helpers/logger';
+import { updateSandBoxFile } from '../../helpers/sandbox';
 
 export default class Generate extends Command {
   static description = 'Generate a new element';
@@ -79,6 +83,7 @@ export default class Generate extends Command {
     if (sandbox) {
       Generate.generateFile(sandboxPath, sandbox, sandboxPathShort);
     }
+    updateSandBoxFile();
   }
 
   async getArgs() {
@@ -119,11 +124,7 @@ export default class Generate extends Command {
   }
 
   static generateFile(path: string, content: string, shortPath: string): void {
-    writeFile(path, content, (err) => {
-      if (err) throw err;
-      else {
-        logCreated(`${shortPath}`);
-      }
-    });
+    updateFileAndLint(path, content);
+    logCreated(shortPath);
   }
 }
