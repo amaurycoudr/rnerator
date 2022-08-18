@@ -11,7 +11,7 @@ const componentTemplate =
 
 export const config = {
   location: 'components',
-  noSandBox: false,
+  sandboxDisabled: false,
 };
 
 export default componentTemplate;
