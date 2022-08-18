@@ -100,7 +100,7 @@ const wrapper = `import React, { FC } from 'react';
 const Wrapper: FC = ({ children }) => <>{children}</>;
 
 export default Wrapper;`;
-const content = {
+const sandboxContent = {
   'App.tsx': app,
   'Home.tsx': home,
   'Navigator.tsx': navigator,
@@ -108,4 +108,4 @@ const content = {
   'Wrapper.tsx': wrapper,
 };
 
-export default content;
+export default sandboxContent;
