@@ -9,16 +9,23 @@ oclif example Hello World CLI
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
 
 <!-- toc -->
-* [RNERATOR](#rnerator)
-* [Usage](#usage)
-* [Commands](#commands)
-* [Templates](#templates)
-* [Sandbox](#sandbox)
+
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g rnerator
 $ rnerator COMMAND
@@ -30,15 +37,23 @@ USAGE
   $ rnerator COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`rnerator generate NAME`](#rnerator-generate-name)
-* [`rnerator help [COMMAND]`](#rnerator-help-command)
-* [`rnerator init`](#rnerator-init)
-* [`rnerator sandbox`](#rnerator-sandbox)
+
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
 
 ## `rnerator generate NAME`
 
@@ -126,6 +141,7 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.3.0/dist/commands/sandbox/index.ts)_
+
 <!-- commandsstop -->
 
 # Templates
@@ -150,12 +166,12 @@ The **default export** must be the string template and this template must have o
   '\nexport default {{name}}'
 ```
 
-The template should also export a config file with location:string and noSandbox:true
+The template should also export a config object with location:string and sandboxDisabled:boolean
 
 ```ts
 const config = {
   location: 'screen',
-  noSandBox: true,
+  sandboxDisabled: true,
 };
 ```
 
@@ -172,6 +188,7 @@ a folder with this structure is created:
 |-- Navigator.tsx
 |-- Home.tsx
 |-- sandboxFiles.ts
+|-- Wrapper.ts
 ```
 
 Each time you generate a component with a sandbox file, the component sandboxFiles.ts is re-generated. (you can also re-regenerate this file thanks to `rnerator sandbox`)
