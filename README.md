@@ -24,7 +24,7 @@ $ npm install -g rnerator
 $ rnerator COMMAND
 running command...
 $ rnerator (--version)
-rnerator/0.3.0 darwin-arm64 node-v18.4.0
+rnerator/0.4.0 darwin-arm64 node-v18.4.0
 $ rnerator --help [COMMAND]
 USAGE
   $ rnerator COMMAND
@@ -68,7 +68,7 @@ EXAMPLES
   UPDATED src/sandbox/sandboxFiles.ts
 ```
 
-_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.3.0/dist/commands/generate/index.ts)_
+_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.0/dist/commands/generate/index.ts)_
 
 ## `rnerator help [COMMAND]`
 
@@ -88,7 +88,7 @@ DESCRIPTION
   Display help for rnerator.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.10/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.12/src/commands/help.ts)_
 
 ## `rnerator init`
 
@@ -108,7 +108,7 @@ EXAMPLES
   $ rnerator init
 ```
 
-_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.3.0/dist/commands/init/index.ts)_
+_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.0/dist/commands/init/index.ts)_
 
 ## `rnerator sandbox`
 
@@ -125,7 +125,7 @@ EXAMPLES
   $ rnerator sandbox
 ```
 
-_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.3.0/dist/commands/sandbox/index.ts)_
+_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.0/dist/commands/sandbox/index.ts)_
 <!-- commandsstop -->
 
 # Templates
@@ -150,12 +150,12 @@ The **default export** must be the string template and this template must have o
   '\nexport default {{name}}'
 ```
 
-The template should also export a config file with location:string and noSandbox:true
+The template should also export a config object with location:string and sandboxDisabled:boolean
 
 ```ts
 const config = {
   location: 'screen',
-  noSandBox: true,
+  sandboxDisabled: true,
 };
 ```
 
@@ -172,6 +172,7 @@ a folder with this structure is created:
 |-- Navigator.tsx
 |-- Home.tsx
 |-- sandboxFiles.ts
+|-- Wrapper.ts
 ```
 
 Each time you generate a component with a sandbox file, the component sandboxFiles.ts is re-generated. (you can also re-regenerate this file thanks to `rnerator sandbox`)
