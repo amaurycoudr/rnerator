@@ -9,51 +9,36 @@ oclif example Hello World CLI
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
 
 <!-- toc -->
-
-- [RNERATOR](#rnerator)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`rnerator generate NAME`](#rnerator-generate-name)
-  - [`rnerator help [COMMAND]`](#rnerator-help-command)
-  - [`rnerator init`](#rnerator-init)
-  - [`rnerator sandbox`](#rnerator-sandbox)
-- [Templates](#templates)
-  - [Template Format](#template-format)
-- [Sandbox](#sandbox)
+* [RNERATOR](#rnerator)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Templates](#templates)
+* [Sandbox](#sandbox)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g rnerator
 $ rnerator COMMAND
 running command...
 $ rnerator (--version)
-rnerator/0.3.0 darwin-arm64 node-v18.4.0
+rnerator/0.4.0 darwin-arm64 node-v18.4.0
 $ rnerator --help [COMMAND]
 USAGE
   $ rnerator COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [RNERATOR](#rnerator)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`rnerator generate NAME`](#rnerator-generate-name)
-  - [`rnerator help [COMMAND]`](#rnerator-help-command)
-  - [`rnerator init`](#rnerator-init)
-  - [`rnerator sandbox`](#rnerator-sandbox)
-- [Templates](#templates)
-  - [Template Format](#template-format)
-- [Sandbox](#sandbox)
+* [`rnerator generate NAME`](#rnerator-generate-name)
+* [`rnerator help [COMMAND]`](#rnerator-help-command)
+* [`rnerator init`](#rnerator-init)
+* [`rnerator sandbox`](#rnerator-sandbox)
 
 ## `rnerator generate NAME`
 
@@ -83,7 +68,7 @@ EXAMPLES
   UPDATED src/sandbox/sandboxFiles.ts
 ```
 
-_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.3.0/dist/commands/generate/index.ts)_
+_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.0/dist/commands/generate/index.ts)_
 
 ## `rnerator help [COMMAND]`
 
@@ -103,7 +88,7 @@ DESCRIPTION
   Display help for rnerator.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.10/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.12/src/commands/help.ts)_
 
 ## `rnerator init`
 
@@ -123,7 +108,7 @@ EXAMPLES
   $ rnerator init
 ```
 
-_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.3.0/dist/commands/init/index.ts)_
+_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.0/dist/commands/init/index.ts)_
 
 ## `rnerator sandbox`
 
@@ -140,8 +125,7 @@ EXAMPLES
   $ rnerator sandbox
 ```
 
-_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.3.0/dist/commands/sandbox/index.ts)_
-
+_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.0/dist/commands/sandbox/index.ts)_
 <!-- commandsstop -->
 
 # Templates
