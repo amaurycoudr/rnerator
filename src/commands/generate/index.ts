@@ -2,13 +2,13 @@ import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
 import { compile } from 'handlebars';
 import { ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
-import {
-  createFileAndLint,
-  createFolder,
-  throwIfExists,
-} from '../../helpers/folder';
+import { createFolder, throwIfExists } from '../../helpers/folder';
 import { getCreated, getUpdated } from '../../helpers/logger';
 import { updateSandBoxFile } from '../../helpers/sandbox';
+import {
+  createFileFromTemplate,
+  errorTemplateNotFound,
+} from '../../helpers/template';
 
 export default class Generate extends Command {
   static description = 'Generate a new element';
@@ -66,26 +66,14 @@ export default class Generate extends Command {
     createFolder(originFolder, { silent: true });
     createFolder(folderName, { silent: true });
 
-    const component = Generate.compileTemplate(
-      await Generate.getTemplate(template),
-      { name }
-    );
-    createFileAndLint(fileName, component);
+    createFileFromTemplate({ name }, template, fileName);
 
     if (!indexDisabled) {
-      const index = Generate.compileTemplate(
-        await Generate.getTemplate('index'),
-        { name }
-      );
-      createFileAndLint(`${folderName}/index.tsx`, index);
+      createFileFromTemplate({ name }, 'index', `${folderName}/index.tsx`);
     }
 
     if (!noSandbox) {
-      const sandbox = Generate.compileTemplate(
-        await Generate.getTemplate('sandbox'),
-        { name }
-      );
-      createFileAndLint(sandboxPath, sandbox);
+      createFileFromTemplate({ name }, 'sandbox', sandboxPath);
       updateSandBoxFile();
     }
   }
@@ -102,7 +90,7 @@ export default class Generate extends Command {
     const { config } = await import(
       `${process.cwd()}/${ENTRY}/${TEMPLATES}/${template}`
     );
-    if (!config) throw Generate.errorTemplateNotFound();
+    if (!config) throw errorTemplateNotFound();
     return config as { location: string; noSandbox: string };
   }
 
