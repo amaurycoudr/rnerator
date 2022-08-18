@@ -19,6 +19,7 @@ export default class Generate extends Command {
     )}`,
     `$ rnerator generate ${chalk.blue('Test')}\n` +
       `${getCreated('src/components/Test/Test.tsx')}\n` +
+      `${getCreated('src/components/Test/index.ts')}\n` +
       `${getCreated('src/components/Test/Test.sandbox.tsx')}\n` +
       `${getUpdated('src/sandbox/sandboxFiles.ts')}\n`,
   ];
