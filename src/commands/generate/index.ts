@@ -2,13 +2,13 @@ import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
 import { compile } from 'handlebars';
 import { ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
-import {
-  createFileAndLint,
-  createFolder,
-  throwIfExists,
-} from '../../helpers/folder';
+import { createFolder, throwIfExists } from '../../helpers/folder';
 import { getCreated, getUpdated } from '../../helpers/logger';
 import { updateSandBoxFile } from '../../helpers/sandbox';
+import {
+  createFileFromTemplate,
+  errorTemplateNotFound,
+} from '../../helpers/template';
 
 export default class Generate extends Command {
   static description = 'Generate a new element';
@@ -19,6 +19,7 @@ export default class Generate extends Command {
     )}`,
     `$ rnerator generate ${chalk.blue('Test')}\n` +
       `${getCreated('src/components/Test/Test.tsx')}\n` +
+      `${getCreated('src/components/Test/index.ts')}\n` +
       `${getCreated('src/components/Test/Test.sandbox.tsx')}\n` +
       `${getUpdated('src/sandbox/sandboxFiles.ts')}\n`,
   ];
@@ -42,6 +43,11 @@ export default class Generate extends Command {
       description: 'disabled the creation of a sandbox file',
       default: false,
     }),
+    indexDisabled: Flags.boolean({
+      char: 'i',
+      description: 'disabled the creation of an index file',
+      default: false,
+    }),
   };
 
   async run(): Promise<void> {
@@ -51,6 +57,7 @@ export default class Generate extends Command {
       originFolder,
       name,
       template,
+      indexDisabled,
       noSandbox,
       sandboxPath,
     } = await this.getArgs();
@@ -59,18 +66,14 @@ export default class Generate extends Command {
     createFolder(originFolder, { silent: true });
     createFolder(folderName, { silent: true });
 
-    const component = Generate.compileTemplate(
-      await Generate.getTemplate(template),
-      { name }
-    );
-    createFileAndLint(fileName, component);
+    createFileFromTemplate({ name }, template, fileName);
+
+    if (!indexDisabled) {
+      createFileFromTemplate({ name }, 'index', `${folderName}/index.tsx`);
+    }
 
     if (!noSandbox) {
-      const sandbox = Generate.compileTemplate(
-        await Generate.getTemplate('sandbox'),
-        { name }
-      );
-      createFileAndLint(sandboxPath, sandbox);
+      createFileFromTemplate({ name }, 'sandbox', sandboxPath);
       updateSandBoxFile();
     }
   }
@@ -78,8 +81,8 @@ export default class Generate extends Command {
   async getCliArgs() {
     const { args, flags } = await this.parse(Generate);
     const { name } = args;
-    const { template, noSandbox, location } = flags;
-    return { name, template, noSandbox, location };
+    const { template, noSandbox, location, indexDisabled } = flags;
+    return { name, template, noSandbox, location, indexDisabled };
   }
 
   async getTemplateConfig() {
@@ -87,12 +90,13 @@ export default class Generate extends Command {
     const { config } = await import(
       `${process.cwd()}/${ENTRY}/${TEMPLATES}/${template}`
     );
-    if (!config) throw Generate.errorTemplateNotFound();
+    if (!config) throw errorTemplateNotFound();
     return config as { location: string; noSandbox: string };
   }
 
   async getArgs() {
-    const { name, template, noSandbox, location } = await this.getCliArgs();
+    const { name, template, noSandbox, location, indexDisabled } =
+      await this.getCliArgs();
     const { location: templateLocation, noSandbox: templateNoSandbox } =
       await this.getTemplateConfig();
 
@@ -105,6 +109,7 @@ export default class Generate extends Command {
     return {
       folderName,
       originFolder,
+      indexDisabled,
       fileName,
       name,
       template,
