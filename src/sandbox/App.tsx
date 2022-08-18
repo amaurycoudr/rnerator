@@ -3,12 +3,15 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Navigator from './Navigator';
+import Wrapper from './Wrapper';
 
 function App() {
   return (
-    <NavigationContainer>
-      <Navigator />
-    </NavigationContainer>
+    <Wrapper>
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
+    </Wrapper>
   );
 }
 
