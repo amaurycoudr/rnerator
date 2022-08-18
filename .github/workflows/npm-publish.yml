@@ -5,10 +5,11 @@ name: Node.js Package
 
 on:
   push:
-    tags:
-    - '*'
     branches:
     - master
+    tags:
+    - 'v*'  
+
 
 jobs:
   publish-npm:
