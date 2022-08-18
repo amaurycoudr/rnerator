@@ -38,8 +38,8 @@ export default class Generate extends Command {
       char: 'l',
       description: 'location of the component generated',
     }),
-    noSandbox: Flags.boolean({
-      char: 'n',
+    sandboxDisabled: Flags.boolean({
+      char: 's',
       description: 'disabled the creation of a sandbox file',
       default: false,
     }),
@@ -58,7 +58,7 @@ export default class Generate extends Command {
       name,
       template,
       indexDisabled,
-      noSandbox,
+      sandboxDisabled,
       sandboxPath,
     } = await this.getArgs();
 
@@ -72,7 +72,7 @@ export default class Generate extends Command {
       createFileFromTemplate({ name }, 'index', `${folderName}/index.tsx`);
     }
 
-    if (!noSandbox) {
+    if (!sandboxDisabled) {
       createFileFromTemplate({ name }, 'sandbox', sandboxPath);
       updateSandBoxFile();
     }
@@ -81,8 +81,8 @@ export default class Generate extends Command {
   async getCliArgs() {
     const { args, flags } = await this.parse(Generate);
     const { name } = args;
-    const { template, noSandbox, location, indexDisabled } = flags;
-    return { name, template, noSandbox, location, indexDisabled };
+    const { template, sandboxDisabled, location, indexDisabled } = flags;
+    return { name, template, sandboxDisabled, location, indexDisabled };
   }
 
   async getTemplateConfig() {
@@ -91,14 +91,16 @@ export default class Generate extends Command {
       `${process.cwd()}/${ENTRY}/${TEMPLATES}/${template}`
     );
     if (!config) throw errorTemplateNotFound();
-    return config as { location: string; noSandbox: string };
+    return config as { location: string; sandboxDisabled: string };
   }
 
   async getArgs() {
-    const { name, template, noSandbox, location, indexDisabled } =
+    const { name, template, sandboxDisabled, location, indexDisabled } =
       await this.getCliArgs();
-    const { location: templateLocation, noSandbox: templateNoSandbox } =
-      await this.getTemplateConfig();
+    const {
+      location: templateLocation,
+      sandboxDisabled: templateSandboxDisabled,
+    } = await this.getTemplateConfig();
 
     const originFolder = `${ENTRY}/${location ?? templateLocation}`;
 
@@ -113,7 +115,7 @@ export default class Generate extends Command {
       fileName,
       name,
       template,
-      noSandbox: noSandbox ?? templateNoSandbox,
+      sandboxDisabled: sandboxDisabled ?? templateSandboxDisabled,
       sandboxPath,
     };
   }
