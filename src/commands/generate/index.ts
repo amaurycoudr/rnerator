@@ -65,6 +65,12 @@ export default class Generate extends Command {
     );
     createFileAndLint(fileName, component);
 
+    const index = Generate.compileTemplate(
+      await Generate.getTemplate('index'),
+      { name }
+    );
+    createFileAndLint(`${folderName}/index.tsx`, index);
+
     if (!noSandbox) {
       const sandbox = Generate.compileTemplate(
         await Generate.getTemplate('sandbox'),
