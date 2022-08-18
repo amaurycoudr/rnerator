@@ -66,14 +66,18 @@ export default class Generate extends Command {
     createFolder(originFolder, { silent: true });
     createFolder(folderName, { silent: true });
 
-    createFileFromTemplate({ name }, template, fileName);
+    await createFileFromTemplate({ name }, template, fileName);
 
     if (!indexDisabled) {
-      createFileFromTemplate({ name }, 'index', `${folderName}/index.tsx`);
+      await createFileFromTemplate(
+        { name },
+        'index',
+        `${folderName}/index.tsx`
+      );
     }
 
     if (!sandboxDisabled) {
-      createFileFromTemplate({ name }, 'sandbox', sandboxPath);
+      await createFileFromTemplate({ name }, 'sandbox', sandboxPath);
       updateSandBoxFile();
     }
   }
