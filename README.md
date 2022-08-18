@@ -3,9 +3,8 @@
 oclif example Hello World CLI
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
-[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
+[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://www.npmjs.com/package/rnerator)
+[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://www.npmjs.com/package/rnerator)
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
 
 <!-- toc -->
@@ -24,7 +23,7 @@ $ npm install -g rnerator
 $ rnerator COMMAND
 running command...
 $ rnerator (--version)
-rnerator/0.4.4 darwin-arm64 node-v18.4.0
+rnerator/0.4.5 darwin-arm64 node-v18.4.0
 $ rnerator --help [COMMAND]
 USAGE
   $ rnerator COMMAND
@@ -68,7 +67,7 @@ EXAMPLES
   UPDATED src/sandbox/sandboxFiles.ts
 ```
 
-_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.4/dist/commands/generate/index.ts)_
+_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.5/dist/commands/generate/index.ts)_
 
 ## `rnerator help [COMMAND]`
 
@@ -108,7 +107,7 @@ EXAMPLES
   $ rnerator init
 ```
 
-_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.4/dist/commands/init/index.ts)_
+_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.5/dist/commands/init/index.ts)_
 
 ## `rnerator sandbox`
 
@@ -125,7 +124,7 @@ EXAMPLES
   $ rnerator sandbox
 ```
 
-_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.4/dist/commands/sandbox/index.ts)_
+_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.5/dist/commands/sandbox/index.ts)_
 <!-- commandsstop -->
 
 # Templates
