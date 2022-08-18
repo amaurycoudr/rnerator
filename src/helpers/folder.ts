@@ -6,7 +6,6 @@ import {
   statSync,
   writeFileSync,
 } from 'fs';
-import { copySync } from 'fs-extra';
 import { join } from 'path';
 import { ENTRY } from './const';
 
@@ -26,17 +25,6 @@ export const createFolder = (
 };
 
 const getPath = (name: string) => `${ENTRY}/${name}`;
-
-const copyFolder = (
-  name: string,
-
-  config: { overWrite?: boolean } = {}
-) => {
-  copySync(`${__dirname}/../${name}`, getPath(name), {
-    overwrite: config.overWrite ?? false,
-  });
-  logUpdated(getPath(name));
-};
 
 export const throwIfExists = (dir: string): void => {
   if (existsSync(dir)) {
@@ -68,11 +56,19 @@ export const updateFileAndLint = (file: string, content: string) => {
   logUpdated(file);
 };
 
+const generateFilesFromConfig = (
+  path: string,
+  content: Record<string, string>
+) => {
+  Object.keys(content).forEach((file) => {
+    writeFileAndLint(join(path, file), content[file]);
+  });
+};
+
 export const createAndCopyFolder = (
   name: string,
-  config: { overWrite?: boolean } = {}
+  content: Record<string, string>
 ) => {
   createFolder(getPath(name));
-  copyFolder(name, config);
-  execEslint(getPath(name));
+  generateFilesFromConfig(getPath(name), content);
 };
