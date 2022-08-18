@@ -34,10 +34,16 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`rnerator generate NAME`](#rnerator-generate-name)
-* [`rnerator help [COMMAND]`](#rnerator-help-command)
-* [`rnerator init`](#rnerator-init)
-* [`rnerator sandbox`](#rnerator-sandbox)
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
 
 ## `rnerator generate NAME`
 
