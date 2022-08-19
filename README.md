@@ -1,23 +1,30 @@
 # RNERATOR
 
-oclif example Hello World CLI
+Generator of component for React Native. also provides a sandbox environment for the component dev.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://www.npmjs.com/package/rnerator)
-[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://www.npmjs.com/package/rnerator)
-[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/rnerator?color=green)](https://www.npmjs.com/package/rnerator)
+[![Downloads/week](https://img.shields.io/npm/dy/rnerator)](https://www.npmjs.com/package/rnerator)
+[![License](https://img.shields.io/npm/l/rnerator)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
 
 <!-- toc -->
-* [RNERATOR](#rnerator)
-* [Usage](#usage)
-* [Commands](#commands)
-* [Templates](#templates)
-* [Sandbox](#sandbox)
+
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g rnerator
 $ rnerator COMMAND
@@ -29,15 +36,23 @@ USAGE
   $ rnerator COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`rnerator generate NAME`](#rnerator-generate-name)
-* [`rnerator help [COMMAND]`](#rnerator-help-command)
-* [`rnerator init`](#rnerator-init)
-* [`rnerator sandbox`](#rnerator-sandbox)
+
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
 
 ## `rnerator generate NAME`
 
@@ -125,6 +140,7 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.4.5/dist/commands/sandbox/index.ts)_
+
 <!-- commandsstop -->
 
 # Templates
