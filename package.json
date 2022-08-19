@@ -1,6 +1,6 @@
 {
   "name": "rnerator",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Component generator for React Native, with a Sandbox environment",
   "author": "amaurycoudr @amaurycoudr",
   "bin": {
