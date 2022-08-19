@@ -1,6 +1,5 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { compile } from 'handlebars';
 import { ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
 import { createFolder, throwIfExists } from '../../helpers/folder';
 import { getCreated, getUpdated } from '../../helpers/logger';
@@ -122,32 +121,5 @@ export default class Generate extends Command {
       sandboxDisabled: sandboxDisabled ?? templateSandboxDisabled,
       sandboxPath,
     };
-  }
-
-  static compileTemplate(template: any, data: unknown): string {
-    try {
-      return compile(template, { strict: true })(data);
-    } catch (error) {
-      throw new Error(`❌  ${chalk.red('INVALID TEMPLATE')}`);
-    }
-  }
-
-  static async getTemplate(name: string) {
-    try {
-      return (await import(`${process.cwd()}/${ENTRY}/${TEMPLATES}/${name}`))
-        .default;
-    } catch (err) {
-      throw Generate.errorTemplateNotFound();
-    }
-  }
-
-  static errorTemplateNotFound() {
-    return new Error(
-      `❌  ${chalk.red(
-        'TEMPLATE NOT FOUND OR INVALID' +
-          '\nThe template  file must have a string in export by default' +
-          '\nand export a config object with the location and noSandBox properties'
-      )}`
-    );
   }
 }
