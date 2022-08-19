@@ -1,12 +1,13 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
+import { ENTRY, SANDBOX } from '../../helpers/const';
 import { createFolder, throwIfExists } from '../../helpers/folder';
 import { getCreated, getUpdated } from '../../helpers/logger';
 import { updateSandBoxFile } from '../../helpers/sandbox';
 import {
   createFileFromTemplate,
   errorTemplateNotFound,
+  getTemplatePathFromName,
 } from '../../helpers/template';
 
 export default class Generate extends Command {
@@ -90,11 +91,14 @@ export default class Generate extends Command {
 
   async getTemplateConfig() {
     const { template } = await this.getCliArgs();
-    const { config } = await import(
-      `${process.cwd()}/${ENTRY}/${TEMPLATES}/${template}`
+    const { location, sandboxDisabled } = await import(
+      getTemplatePathFromName(template)
     );
-    if (!config) throw errorTemplateNotFound();
-    return config as { location: string; sandboxDisabled: string };
+    if (!location) throw errorTemplateNotFound();
+    return { location, sandboxDisabled } as {
+      location: string;
+      sandboxDisabled: boolean;
+    };
   }
 
   async getArgs() {
