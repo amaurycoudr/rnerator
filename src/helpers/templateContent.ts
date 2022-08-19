@@ -1,24 +1,23 @@
-const component = `const component =
-"import React from 'react';import { View } from 'react-native';type {{name}}Props = {};const {{name}} = (props: {{name}}Props) => {return (  <View>  </View>)}; export default {{name}}";
-export const config = {
-location: 'components',
-sandboxDisabled: false,
+const component = {
+  template:
+    "import React from 'react';import { View } from 'react-native';type {{name}}Props = {};const {{name}} = (props: {{name}}Props) => {return (  <View>  </View>)}; export default {{name}};",
+  location: 'components',
+  sandboxDisabled: false,
 };
 
-export default component;`;
+const index = {
+  template: "import {{name}} from './{{name}}';export default {{name}};",
+};
 
-const index = `const index = "import {{name}} from './{{name}}';export default {{name}};";
-
-export default index;`;
-
-const sandbox = `const sandbox =
-"import React from 'react'; import { View } from 'react-native'const {{name}}SandBox = () => {return (<View></View>)} export default {{name}}SandBox';"
-export default sandbox;`;
-
+const sandbox = {
+  template:
+    "import React from 'react';import { View } from 'react-native';type {{name}}Props = {};const {{name}} = (props: {{name}}Props) => {return (  <View>  </View>)}; export default {{name}};",
+};
+const stringify = (data: any) => JSON.stringify(data, null, '\t');
 const templatesContent = {
-  'component.ts': component,
-  'index.ts': index,
-  'sandbox.ts': sandbox,
+  'component.json': stringify(component),
+  'index.json': stringify(index),
+  'sandbox.json': stringify(sandbox),
 };
 
 export default templatesContent;
