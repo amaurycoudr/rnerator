@@ -41,7 +41,7 @@ export const parseAFolder = (directory: string, files: string[]) => {
 };
 
 const execEslint = (path: string) => {
-  exec(`yarn run eslint --fix ${path}`);
+  exec(`yarn run eslint --fix ${path} --ignore-pattern **/*.json`);
 };
 const writeFileAndLint = (file: string, content: string) => {
   writeFileSync(file, content);

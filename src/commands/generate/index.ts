@@ -1,13 +1,13 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { compile } from 'handlebars';
-import { ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
+import { ENTRY, SANDBOX } from '../../helpers/const';
 import { createFolder, throwIfExists } from '../../helpers/folder';
 import { getCreated, getUpdated } from '../../helpers/logger';
 import { updateSandBoxFile } from '../../helpers/sandbox';
 import {
   createFileFromTemplate,
   errorTemplateNotFound,
+  getTemplatePathFromName,
 } from '../../helpers/template';
 
 export default class Generate extends Command {
@@ -91,11 +91,14 @@ export default class Generate extends Command {
 
   async getTemplateConfig() {
     const { template } = await this.getCliArgs();
-    const { config } = await import(
-      `${process.cwd()}/${ENTRY}/${TEMPLATES}/${template}`
+    const { location, sandboxDisabled } = await import(
+      getTemplatePathFromName(template)
     );
-    if (!config) throw errorTemplateNotFound();
-    return config as { location: string; sandboxDisabled: string };
+    if (!location) throw errorTemplateNotFound();
+    return { location, sandboxDisabled } as {
+      location: string;
+      sandboxDisabled: boolean;
+    };
   }
 
   async getArgs() {
@@ -122,32 +125,5 @@ export default class Generate extends Command {
       sandboxDisabled: sandboxDisabled ?? templateSandboxDisabled,
       sandboxPath,
     };
-  }
-
-  static compileTemplate(template: any, data: unknown): string {
-    try {
-      return compile(template, { strict: true })(data);
-    } catch (error) {
-      throw new Error(`❌  ${chalk.red('INVALID TEMPLATE')}`);
-    }
-  }
-
-  static async getTemplate(name: string) {
-    try {
-      return (await import(`${process.cwd()}/${ENTRY}/${TEMPLATES}/${name}`))
-        .default;
-    } catch (err) {
-      throw Generate.errorTemplateNotFound();
-    }
-  }
-
-  static errorTemplateNotFound() {
-    return new Error(
-      `❌  ${chalk.red(
-        'TEMPLATE NOT FOUND OR INVALID' +
-          '\nThe template  file must have a string in export by default' +
-          '\nand export a config object with the location and noSandBox properties'
-      )}`
-    );
   }
 }

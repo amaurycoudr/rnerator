@@ -12,10 +12,12 @@ export const errorTemplateNotFound = () =>
     )}`
   );
 
+export const getTemplatePathFromName = (templateName: string): string =>
+  `${process.cwd()}/${ENTRY}/${TEMPLATES}/${templateName}.json`;
+
 const getTemplate = async (name: string) => {
   try {
-    return (await import(`${process.cwd()}/${ENTRY}/${TEMPLATES}/${name}`))
-      .default;
+    return (await import(getTemplatePathFromName(name))).template;
   } catch (err) {
     throw errorTemplateNotFound();
   }
