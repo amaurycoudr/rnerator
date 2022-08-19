@@ -6,7 +6,8 @@ name: Node.js Package
 on:
   push:
     tags:
-    - '*'
+    - 'v*'  
+
 
 jobs:
   publish-npm:

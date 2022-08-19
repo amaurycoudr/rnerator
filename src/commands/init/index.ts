@@ -3,6 +3,8 @@ import chalk from 'chalk';
 import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
 import { createAndCopyFolder, createFolder } from '../../helpers/folder';
 import { makeStep } from '../../helpers/logger';
+import sandboxContent from '../../helpers/sandBoxContent';
+import templatesContent from '../../helpers/templateContent';
 
 const gradient = require('gradient-string');
 
@@ -34,9 +36,9 @@ export default class Init extends Command {
     this.log(gradient.summer('\nWelcome to RNERATOR !\n'));
     this.log(gradient.summer("\nLet's get started !\n"));
     Init.initSrcFolder();
-    this.initTemplateFolder();
+    Init.initTemplateFolder();
     Init.initComponentFolder();
-    this.initSandBoxFolder();
+    Init.initSandBoxFolder();
     if (!this.overWrite) {
       this.log(overWriteMessage);
     }
@@ -54,14 +56,14 @@ export default class Init extends Command {
     );
   }
 
-  initTemplateFolder(): void {
+  static initTemplateFolder(): void {
     makeStep(
       {
         name: 'SET UP TEMPLATE FOLDER',
         number: 2,
         total: Init.stepsNumber,
       },
-      () => createAndCopyFolder(TEMPLATES, { overWrite: this.overWrite })
+      () => createAndCopyFolder(TEMPLATES, templatesContent)
     );
   }
 
@@ -76,14 +78,14 @@ export default class Init extends Command {
     );
   }
 
-  initSandBoxFolder(): void {
+  static initSandBoxFolder(): void {
     makeStep(
       {
         name: 'SET UP SANDBOX FOLDER',
         number: 4,
         total: Init.stepsNumber,
       },
-      () => createAndCopyFolder(SANDBOX, { overWrite: this.overWrite })
+      () => createAndCopyFolder(SANDBOX, sandboxContent)
     );
   }
 }
