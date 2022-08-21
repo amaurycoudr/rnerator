@@ -27,7 +27,7 @@ import {
 } from 'react-native';
 import data from './sandboxFiles';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({navigation}: {navigation: {navigate: Function}}) => {
   const renderItem: ListRenderItem<typeof data[number]> = ({ item }) => {
     return (
       <TouchableOpacity
