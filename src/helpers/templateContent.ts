@@ -11,7 +11,7 @@ const index = {
 
 const sandbox = {
   template:
-    "import React from 'react';import { View } from 'react-native';type {{name}}Props = {};const {{name}} = (props: {{name}}Props) => {return (  <View>  </View>)}; export default {{name}};",
+    "import React from 'react';import { View } from 'react-native'; const {{name}}Sandbox = () => {return (  <View></View>)}; export default {{name}}Sandbox;",
 };
 const stringify = (data: any) => JSON.stringify(data, null, '\t');
 const templatesContent = {
