@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
 import { createAndCopyFolder, createFolder } from '../../helpers/folder';
 import { makeStep } from '../../helpers/logger';
-import sandboxContent from '../../helpers/sandBoxContent';
+import getSandboxContent from '../../helpers/sandBoxContent';
 import templatesContent from '../../helpers/templateContent';
 
 const gradient = require('gradient-string');
@@ -24,6 +24,11 @@ export default class Init extends Command {
       description: 'force the overwrite of the existing file',
       default: false,
     }),
+    js: Flags.boolean({
+      char: 'j',
+      description: 'is a javascript project',
+      default: false,
+    }),
   };
 
   static stepsNumber = 4;
@@ -33,12 +38,15 @@ export default class Init extends Command {
   async run() {
     const { flags } = await this.parse(Init);
     this.overWrite = flags.overwrite;
+    const extension = flags.js ? 'js' : 'ts';
+
     this.log(gradient.summer('\nWelcome to RNERATOR !\n'));
     this.log(gradient.summer("\nLet's get started !\n"));
     Init.initSrcFolder();
     Init.initTemplateFolder();
     Init.initComponentFolder();
-    Init.initSandBoxFolder();
+    Init.initSandBoxFolder(extension);
+
     if (!this.overWrite) {
       this.log(overWriteMessage);
     }
@@ -78,14 +86,14 @@ export default class Init extends Command {
     );
   }
 
-  static initSandBoxFolder(): void {
+  static initSandBoxFolder(extension: 'ts' | 'js'): void {
     makeStep(
       {
         name: 'SET UP SANDBOX FOLDER',
         number: 4,
         total: Init.stepsNumber,
       },
-      () => createAndCopyFolder(SANDBOX, sandboxContent)
+      () => createAndCopyFolder(SANDBOX, getSandboxContent(extension))
     );
   }
 }
