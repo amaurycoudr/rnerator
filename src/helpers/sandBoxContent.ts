@@ -1,3 +1,5 @@
+import { getFileName } from './utils';
+
 const app = `import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Navigator from './Navigator';
@@ -103,12 +105,13 @@ const wrapper = `import React, { FC } from 'react';
 const Wrapper: FC = ({ children }) => <>{children}</>;
 
 export default Wrapper;`;
-const sandboxContent = {
-  'App.tsx': app,
-  'Home.tsx': home,
-  'Navigator.tsx': navigator,
-  'sandboxFiles.ts': sandboxFiles,
-  'Wrapper.tsx': wrapper,
-};
+const getSandboxContent = (extension: 'js' | 'ts' = 'ts') => ({
+  [getFileName('App', { isReactFile: true, extension })]: app,
+  [getFileName('Home', { isReactFile: true, extension })]: home,
+  [getFileName('Navigator', { isReactFile: true, extension })]: navigator,
+  [getFileName('sandboxFiles', { isReactFile: false, extension })]: sandboxFiles,
+  [getFileName('Wrapper', { isReactFile: true, extension })]: wrapper,
+  
+});
 
-export default sandboxContent;
+export default getSandboxContent;
