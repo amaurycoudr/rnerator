@@ -8,16 +8,23 @@ Generator of component for React Native. also provides a sandbox environment for
 [![License](https://img.shields.io/npm/l/rnerator)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
 
 <!-- toc -->
-* [RNERATOR](#rnerator)
-* [Usage](#usage)
-* [Commands](#commands)
-* [Templates](#templates)
-* [Sandbox](#sandbox)
+
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g rnerator
 $ rnerator COMMAND
@@ -29,15 +36,23 @@ USAGE
   $ rnerator COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`rnerator generate NAME`](#rnerator-generate-name)
-* [`rnerator help [COMMAND]`](#rnerator-help-command)
-* [`rnerator init`](#rnerator-init)
-* [`rnerator sandbox`](#rnerator-sandbox)
+
+- [RNERATOR](#rnerator)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
 
 ## `rnerator generate NAME`
 
@@ -45,14 +60,15 @@ Generate a new element
 
 ```
 USAGE
-  $ rnerator generate [NAME] [-t <value>] [-l <value>] [-n]
+  $ rnerator generate [NAME] [-t <value>] [-l <value>] [-s] [-i]
 
 ARGUMENTS
   NAME  component Name
 
 FLAGS
+  -i, --indexDisabled     disabled the creation of an index file
   -l, --location=<value>  location of the component generated
-  -n, --noSandbox         disabled the creation of a sandbox file
+  -s, --sandboxDisabled   disabled the creation of a sandbox file
   -t, --template=<value>  [default: component] template used for the component generated
 
 DESCRIPTION
@@ -63,6 +79,7 @@ EXAMPLES
 
   $ rnerator generate Test
   CREATED src/components/Test/Test.tsx
+  CREATED src/components/Test/index.ts
   CREATED src/components/Test/Test.sandbox.tsx
   UPDATED src/sandbox/sandboxFiles.ts
 ```
@@ -95,9 +112,10 @@ Initialize a new project
 
 ```
 USAGE
-  $ rnerator init [-o]
+  $ rnerator init [-o] [-j]
 
 FLAGS
+  -j, --js         is a javascript project
   -o, --overwrite  force the overwrite of the existing file
 
 DESCRIPTION
@@ -125,6 +143,7 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.6.4/dist/commands/sandbox/index.ts)_
+
 <!-- commandsstop -->
 
 # Templates
@@ -135,27 +154,13 @@ You can **edit** this one and **add** your own templates
 ## Template Format
 
 All the templates must have the same format.
-The **default export** must be the string template and this template must have one variable named name like this:
 
-```
- "import React from 'react'" +
-  "\nimport { View } from 'react-native'" +
-  '\ntype {{name}}Props = {};' +
-  '\nconst {{name}} = (props: {{name}}Props) => {' +
-  '\nreturn (' +
-  '\n  <View>' +
-  '\n  </View>' +
-  '\n)}' +
-  '\nexport default {{name}}'
-```
-
-The template should also export a config object with location:string and sandboxDisabled:boolean
-
-```ts
-const config = {
-  location: 'screen',
-  sandboxDisabled: true,
-};
+```json
+{
+  "template": "import React from 'react'; import Box from '~core/Box'; import Text from '~core/Text'; type {{name}}Props = {}; const {{name}} = (props: {{name}}Props) => { return (<Box><Text>{{name}}</Text></Box>);};export default {{name}};",
+  "location": "components",
+  "sandboxDisabled": false
+}
 ```
 
 # Sandbox
