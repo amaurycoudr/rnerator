@@ -1,5 +1,7 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
+import { existsSync, readdirSync } from 'fs';
+import { extname } from 'path';
 import { ENTRY, SANDBOX } from '../../helpers/const';
 import { createFolder, throwIfExists } from '../../helpers/folder';
 import { getCreated, getUpdated } from '../../helpers/logger';
@@ -50,6 +52,15 @@ export default class Generate extends Command {
     }),
   };
 
+  static get extension() {
+    const pathToSandbox = `${ENTRY}/${SANDBOX}`;
+    if (!existsSync(pathToSandbox)) {
+      throw new Error(`${pathToSandbox} does not exist`);
+    }
+    const files = readdirSync(pathToSandbox);
+    return extname(files[0]).includes('js') ? 'js' : 'ts';
+  }
+
   async run(): Promise<void> {
     const {
       folderName,
@@ -72,10 +83,9 @@ export default class Generate extends Command {
       await createFileFromTemplate(
         { name },
         'index',
-        `${folderName}/index.tsx`
+        `${folderName}/index.${Generate.extension}x`
       );
     }
-
     if (!sandboxDisabled) {
       await createFileFromTemplate({ name }, 'sandbox', sandboxPath);
       updateSandBoxFile();
@@ -105,15 +115,15 @@ export default class Generate extends Command {
     const { name, template, sandboxDisabled, location, indexDisabled } =
       await this.getCliArgs();
     const {
-      location: templateLocation,
-      sandboxDisabled: templateSandboxDisabled,
+      location: defaultLocation,
+      sandboxDisabled: defaultSandboxDisabled,
     } = await this.getTemplateConfig();
 
-    const originFolder = `${ENTRY}/${location ?? templateLocation}`;
+    const originFolder = `${ENTRY}/${location ?? defaultLocation}`;
 
     const folderName = `${originFolder}/${name}`;
-    const fileName = `${folderName}/${name}.tsx`;
-    const sandboxPath = `${folderName}/${name}.${SANDBOX}.tsx`;
+    const fileName = `${folderName}/${name}.${Generate.extension}x`;
+    const sandboxPath = `${folderName}/${name}.${SANDBOX}.${Generate.extension}x`;
 
     return {
       folderName,
@@ -122,7 +132,7 @@ export default class Generate extends Command {
       fileName,
       name,
       template,
-      sandboxDisabled: sandboxDisabled ?? templateSandboxDisabled,
+      sandboxDisabled: sandboxDisabled ?? defaultSandboxDisabled,
       sandboxPath,
     };
   }
