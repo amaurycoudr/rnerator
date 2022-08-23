@@ -8,22 +8,12 @@ import templatesContent from '../../helpers/templateContent';
 
 const gradient = require('gradient-string');
 
-const overWriteMessage =
-  `${chalk.yellow(
-    '⚠️ Warning:'
-  )} If a file with the same name already exists it will NOT be replaced (for example template/component.ts)\n` +
-  'You can use the --overWrite flag to overwrite the existing file';
 export default class Init extends Command {
   static description = 'Initialize a new project';
 
   static examples = [`$ rnerator init`];
 
   static flags = {
-    overwrite: Flags.boolean({
-      char: 'o',
-      description: 'force the overwrite of the existing file',
-      default: false,
-    }),
     js: Flags.boolean({
       char: 'j',
       description: 'is a javascript project',
@@ -37,19 +27,13 @@ export default class Init extends Command {
 
   async run() {
     const { flags } = await this.parse(Init);
-    this.overWrite = flags.overwrite;
     const extension = flags.js ? 'js' : 'ts';
-
     this.log(gradient.summer('\nWelcome to RNERATOR !\n'));
     this.log(gradient.summer("\nLet's get started !\n"));
     Init.initSrcFolder();
     Init.initTemplateFolder();
     Init.initComponentFolder();
     Init.initSandBoxFolder(extension);
-
-    if (!this.overWrite) {
-      this.log(overWriteMessage);
-    }
     this.log(`${chalk.green('⭐ Finished ⭐')}`);
   }
 
