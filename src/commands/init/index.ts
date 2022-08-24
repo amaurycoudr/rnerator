@@ -4,7 +4,8 @@ import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
 import { createAndCopyFolder, createFolder } from '../../helpers/folder';
 import { makeStep } from '../../helpers/logger';
 import getSandboxContent from '../../helpers/sandBoxContent';
-import templatesContent from '../../helpers/templateContent';
+import getTemplateContent from '../../helpers/templateContent';
+import { Extension } from '../../helpers/type';
 
 const gradient = require('gradient-string');
 
@@ -31,7 +32,7 @@ export default class Init extends Command {
     this.log(gradient.summer('\nWelcome to RNERATOR !\n'));
     this.log(gradient.summer("\nLet's get started !\n"));
     Init.initSrcFolder();
-    Init.initTemplateFolder();
+    Init.initTemplateFolder(extension);
     Init.initComponentFolder();
     Init.initSandBoxFolder(extension);
     this.log(`${chalk.green('⭐ Finished ⭐')}`);
@@ -48,14 +49,14 @@ export default class Init extends Command {
     );
   }
 
-  static initTemplateFolder(): void {
+  static initTemplateFolder(extension: Extension): void {
     makeStep(
       {
         name: 'SET UP TEMPLATE FOLDER',
         number: 2,
         total: Init.stepsNumber,
       },
-      () => createAndCopyFolder(TEMPLATES, templatesContent)
+      () => createAndCopyFolder(TEMPLATES, getTemplateContent(extension))
     );
   }
 
@@ -70,7 +71,7 @@ export default class Init extends Command {
     );
   }
 
-  static initSandBoxFolder(extension: 'ts' | 'js'): void {
+  static initSandBoxFolder(extension: Extension): void {
     makeStep(
       {
         name: 'SET UP SANDBOX FOLDER',
