@@ -1,11 +1,11 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
-import { createAndCopyFolder, createFolder } from '../../helpers/folder';
-import { makeStep } from '../../helpers/logger';
-import getSandboxContent from '../../helpers/sandBoxContent';
-import getTemplateContent from '../../helpers/templateContent';
-import { Extension } from '../../helpers/type';
+import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../const';
+import { createAndCopyFolder, createFolder } from '../../utils/folder';
+import { makeStepWithLog } from '../../utils/logger';
+import getTemplateContent from '../../init/templateContent';
+import { Extension } from '../../type/type';
+import getSandboxContent from '../../init/sandboxContent';
 
 const gradient = require('gradient-string');
 
@@ -39,7 +39,7 @@ export default class Init extends Command {
   }
 
   static initSrcFolder(): void {
-    makeStep(
+    makeStepWithLog(
       {
         name: 'SETUP SRC FOLDER',
         number: 1,
@@ -50,7 +50,7 @@ export default class Init extends Command {
   }
 
   static initTemplateFolder(extension: Extension): void {
-    makeStep(
+    makeStepWithLog(
       {
         name: 'SET UP TEMPLATE FOLDER',
         number: 2,
@@ -61,7 +61,7 @@ export default class Init extends Command {
   }
 
   static initComponentFolder(): void {
-    makeStep(
+    makeStepWithLog(
       {
         name: 'SET UP COMPONENT FOLDER',
         number: 3,
@@ -72,7 +72,7 @@ export default class Init extends Command {
   }
 
   static initSandBoxFolder(extension: Extension): void {
-    makeStep(
+    makeStepWithLog(
       {
         name: 'SET UP SANDBOX FOLDER',
         number: 4,

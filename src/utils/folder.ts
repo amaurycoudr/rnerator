@@ -7,7 +7,7 @@ import {
   writeFileSync,
 } from 'fs';
 import { join } from 'path';
-import { ENTRY } from './const';
+import { ENTRY } from '../const';
 
 import { getStyledError, logCreated, logSubStep, logUpdated } from './logger';
 

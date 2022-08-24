@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import { curryFileName, getNoTextIfJs } from '../../src/helpers/utils';
+import { curryFileName, getNoTextIfJs } from '../../src/utils/string';
 import { testFn } from '../helpers/utils';
 
-describe('utils.ts test', () => {
+describe('string.ts test', () => {
   describe(testFn(curryFileName), () => {
     it('should return **.ts for extension ts', () => {
       expect(
@@ -25,6 +25,7 @@ describe('utils.ts test', () => {
       ).to.equal('**.jsx');
     });
   });
+
   describe(testFn(getNoTextIfJs), () => {
     it('should return empty string for extension js', () => {
       expect(getNoTextIfJs(true)('**')).to.equal('');
