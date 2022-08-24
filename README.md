@@ -106,25 +106,10 @@ rnerator generate Button -l components/core
 # Commands
 
 <!-- commands -->
-
-- [RNERATOR](#rnerator)
-- [Set Up](#set-up)
-  - [Installation](#installation)
-    - [npm](#npm)
-    - [yarn](#yarn)
-  - [Initialization](#initialization)
-  - [Component Generation](#component-generation)
-- [Commands](#commands)
-  - [`rnerator generate NAME`](#rnerator-generate-name)
-  - [`rnerator help [COMMAND]`](#rnerator-help-command)
-  - [`rnerator init`](#rnerator-init)
-  - [`rnerator sandbox`](#rnerator-sandbox)
-- [Templates](#templates)
-  - [Template Format](#template-format)
-- [Sandbox](#sandbox)
-  - [Folder structure](#folder-structure)
-  - [sandboxFiles](#sandboxfiles)
-  - [Wrapper](#wrapper)
+* [`rnerator generate NAME`](#rnerator-generate-name)
+* [`rnerator help [COMMAND]`](#rnerator-help-command)
+* [`rnerator init`](#rnerator-init)
+* [`rnerator sandbox`](#rnerator-sandbox)
 
 ## `rnerator generate NAME`
 
@@ -156,7 +141,7 @@ EXAMPLES
   UPDATED src/sandbox/sandboxFiles.ts
 ```
 
-_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/generate/index.ts)_
+_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/generate/index.ts)_
 
 ## `rnerator help [COMMAND]`
 
@@ -196,7 +181,7 @@ EXAMPLES
   $ rnerator init
 ```
 
-_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/init/index.ts)_
+_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/init/index.ts)_
 
 ## `rnerator sandbox`
 
@@ -213,8 +198,7 @@ EXAMPLES
   $ rnerator sandbox
 ```
 
-_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/sandbox/index.ts)_
-
+_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/sandbox/index.ts)_
 <!-- commandsstop -->
 
 # Templates
