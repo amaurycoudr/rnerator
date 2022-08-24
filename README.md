@@ -141,7 +141,7 @@ EXAMPLES
   UPDATED src/sandbox/sandboxFiles.ts
 ```
 
-_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/generate/index.ts)_
+_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/generate/index.ts)_
 
 ## `rnerator help [COMMAND]`
 
@@ -181,7 +181,7 @@ EXAMPLES
   $ rnerator init
 ```
 
-_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/init/index.ts)_
+_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/init/index.ts)_
 
 ## `rnerator sandbox`
 
@@ -198,7 +198,7 @@ EXAMPLES
   $ rnerator sandbox
 ```
 
-_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/sandbox/index.ts)_
+_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/sandbox/index.ts)_
 <!-- commandsstop -->
 
 # Templates
