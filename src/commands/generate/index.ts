@@ -1,19 +1,29 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { writeFile } from 'fs';
-import { compile } from 'handlebars';
-import process from 'process';
-import { PATH } from '../../helpers/const';
-import { createDir, throwIfExists } from '../../helpers/folder';
-import { logCreated } from '../../helpers/logger';
+import { existsSync, readdirSync } from 'fs';
+import { extname } from 'path';
+import { ENTRY, SANDBOX } from '../../helpers/const';
+import { createFolder, throwIfExists } from '../../helpers/folder';
+import { getCreated, getUpdated } from '../../helpers/logger';
+import { updateSandBoxFile } from '../../helpers/sandbox';
+import {
+  createFileFromTemplate,
+  errorTemplateNotFound,
+  getTemplatePathFromName,
+} from '../../helpers/template';
 
 export default class Generate extends Command {
   static description = 'Generate a new element';
 
   static examples = [
-    `$ rnerator generate ${chalk.blue('<name>')} --template ${chalk.blue(
+    `$ rnerator generate ${chalk.blue('<name>')} --template=${chalk.blue(
       '<template>'
     )}`,
+    `$ rnerator generate ${chalk.blue('Test')}\n` +
+      `${getCreated('src/components/Test/Test.tsx')}\n` +
+      `${getCreated('src/components/Test/index.ts')}\n` +
+      `${getCreated('src/components/Test/Test.sandbox.tsx')}\n` +
+      `${getUpdated('src/sandbox/sandboxFiles.ts')}\n`,
   ];
 
   static args = [
@@ -30,69 +40,100 @@ export default class Generate extends Command {
       char: 'l',
       description: 'location of the component generated',
     }),
+    sandboxDisabled: Flags.boolean({
+      char: 's',
+      description: 'disabled the creation of a sandbox file',
+      default: false,
+    }),
+    indexDisabled: Flags.boolean({
+      char: 'i',
+      description: 'disabled the creation of an index file',
+      default: false,
+    }),
   };
 
-  async getTemplate() {
-    const { flags } = await this.parse(Generate);
-    try {
-      return (
-        await import(`${process.cwd()}/results/templates/${flags.template}`)
-      ).default;
-    } catch (err) {
-      throw new Error(
-        `❌  ${chalk.red(
-          'TEMPLATE NOT FOUND OR INVALID \nThe template  file must have a string in export by default'
-        )}`
-      );
+  static get extension() {
+    const pathToSandbox = `${ENTRY}/${SANDBOX}`;
+    if (!existsSync(pathToSandbox)) {
+      throw new Error(`${pathToSandbox} does not exist`);
     }
-  }
-
-  async getNames() {
-    const { args, flags } = await this.parse(Generate);
-    const location = flags.location || flags.template;
-    const { name } = args;
-    const folderName = `/${location}s/${name}`;
-    const fileName = `${folderName}/${name}.tsx`;
-    const completePath = `${PATH}/${fileName}`;
-
-    return {
-      folderName,
-      fileName,
-      completePath,
-      name,
-    };
-  }
-
-  static compileTemplate(template: any, data: unknown): string {
-    try {
-      return compile(template, { strict: true })(data);
-    } catch (error) {
-      throw new Error(
-        // @ts-ignore
-        `❌  ${chalk.red('INVALID TEMPLATE')}`
-      );
-    }
-  }
-
-  static generateFile(path: string, content: string, shortPath: string): void {
-    writeFile(path, content, (err) => {
-      if (err) throw err;
-      else {
-        logCreated(`${shortPath}`);
-      }
-    });
+    const files = readdirSync(pathToSandbox);
+    return extname(files[0]).includes('js') ? 'js' : 'ts';
   }
 
   async run(): Promise<void> {
-    const { folderName, fileName, completePath, name } = await this.getNames();
-
-    throwIfExists(completePath, fileName);
-
-    createDir(`${PATH}/${folderName}`, { silent: true });
-
-    const content = Generate.compileTemplate(await this.getTemplate(), {
+    const {
+      folderName,
+      fileName,
+      originFolder,
       name,
-    });
-    Generate.generateFile(completePath, content, fileName);
+      template,
+      indexDisabled,
+      sandboxDisabled,
+      sandboxPath,
+    } = await this.getArgs();
+
+    throwIfExists(fileName);
+    createFolder(originFolder, { silent: true });
+    createFolder(folderName, { silent: true });
+
+    await createFileFromTemplate({ name }, template, fileName);
+
+    if (!indexDisabled) {
+      await createFileFromTemplate(
+        { name },
+        'index',
+        `${folderName}/index.${Generate.extension}x`
+      );
+    }
+    if (!sandboxDisabled) {
+      await createFileFromTemplate({ name }, 'sandbox', sandboxPath);
+      updateSandBoxFile();
+    }
+  }
+
+  async getCliArgs() {
+    const { args, flags } = await this.parse(Generate);
+    const { name } = args;
+    const { template, sandboxDisabled, location, indexDisabled } = flags;
+    return { name, template, sandboxDisabled, location, indexDisabled };
+  }
+
+  async getTemplateConfig() {
+    const { template } = await this.getCliArgs();
+    const { location, sandboxDisabled } = await import(
+      getTemplatePathFromName(template)
+    );
+    if (!location) throw errorTemplateNotFound();
+    return { location, sandboxDisabled } as {
+      location: string;
+      sandboxDisabled: boolean;
+    };
+  }
+
+  async getArgs() {
+    const { name, template, sandboxDisabled, location, indexDisabled } =
+      await this.getCliArgs();
+    const {
+      location: defaultLocation,
+      sandboxDisabled: defaultSandboxDisabled,
+    } = await this.getTemplateConfig();
+
+    const originFolder = `${ENTRY}/${location ?? defaultLocation}`;
+
+    const folderName = `${originFolder}/${name}`;
+    const fileName = `${folderName}/${name}.${Generate.extension}x`;
+    const sandboxPath = `${folderName}/${name}.${SANDBOX}.${Generate.extension}x`;
+
+    return {
+      folderName,
+      originFolder,
+      indexDisabled,
+      fileName,
+      name,
+      template,
+      sandboxDisabled: sandboxDisabled ?? defaultSandboxDisabled,
+      sandboxPath,
+    };
   }
 }

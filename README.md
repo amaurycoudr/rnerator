@@ -1,86 +1,147 @@
-oclif-hello-world
-=================
+# RNERATOR
 
-oclif example Hello World CLI
+Generator of component for React Native. also provides a sandbox environment for the component dev.
+
+> ⚠️ The project is really new so the API could have **breaking change** in a near future
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
-[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
+[![Version](https://img.shields.io/npm/v/rnerator?color=green)](https://www.npmjs.com/package/rnerator)
+[![Downloads/week](https://img.shields.io/npm/dm/rnerator)](https://www.npmjs.com/package/rnerator)
+[![License](https://img.shields.io/npm/l/rnerator)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
-```sh-session
-$ npm install -g rnerator
-$ rnerator COMMAND
-running command...
-$ rnerator (--version)
-rnerator/0.0.0 darwin-arm64 node-v18.4.0
-$ rnerator --help [COMMAND]
-USAGE
-  $ rnerator COMMAND
-...
+- [RNERATOR](#rnerator)
+- [Set Up](#set-up)
+  - [Installation](#installation)
+    - [npm](#npm)
+    - [yarn](#yarn)
+  - [Initialization](#initialization)
+  - [Component Generation](#component-generation)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
+  - [Folder structure](#folder-structure)
+  - [sandboxFiles](#sandboxfiles)
+  - [Wrapper](#wrapper)
+
+# Set Up
+
+## Installation
+
+First you need to install the package.
+
+You can install the CLI on your RN project or globally.
+
+> ⚠️ for an easier management of the CLI version used. I would suggest to prefer the local installation
+
+### npm
+
+```bash
+# local installation
+npm install --save-dev rnerator
 ```
-<!-- usagestop -->
+
+```bash
+# global installation
+npm install rnerator -g
+```
+
+### yarn
+
+```bash
+# local installation
+yarn add -D rnerator
+```
+
+```bash
+# global installation
+yarn global add rnerator
+```
+
+## Initialization
+
+Then you have to init the cli in your project.
+This will (if it doesn't exist) create **template**, **sandbox**, **components** folders and set up their content.
+
+```bash
+# local npm installation
+npm exec rnerator init
+```
+
+```bash
+# local yarn installation
+yarn run rnerator init
+```
+
+```bash
+# global installation
+rnerator init
+```
+
+> ⚠️ To avoid useless conflict you should add **sandboxFiles.ts** to your .gitignore
+
+## Component Generation
+
+Know you can generate your component thanks to the **generate** command
+
+```bash
+# local npm installation
+npm exec rnerator generate Button -l components/core
+```
+
+```bash
+# local yarn installation
+yarn run rnerator generate Button -l components/core
+```
+
+```bash
+# global installation
+rnerator generate Button -l components/core
+```
+
 # Commands
+
 <!-- commands -->
-* [`rnerator hello PERSON`](#rnerator-hello-person)
-* [`rnerator hello world`](#rnerator-hello-world)
+* [`rnerator generate NAME`](#rnerator-generate-name)
 * [`rnerator help [COMMAND]`](#rnerator-help-command)
-* [`rnerator plugins`](#rnerator-plugins)
-* [`rnerator plugins:install PLUGIN...`](#rnerator-pluginsinstall-plugin)
-* [`rnerator plugins:inspect PLUGIN...`](#rnerator-pluginsinspect-plugin)
-* [`rnerator plugins:install PLUGIN...`](#rnerator-pluginsinstall-plugin-1)
-* [`rnerator plugins:link PLUGIN`](#rnerator-pluginslink-plugin)
-* [`rnerator plugins:uninstall PLUGIN...`](#rnerator-pluginsuninstall-plugin)
-* [`rnerator plugins:uninstall PLUGIN...`](#rnerator-pluginsuninstall-plugin-1)
-* [`rnerator plugins:uninstall PLUGIN...`](#rnerator-pluginsuninstall-plugin-2)
-* [`rnerator plugins update`](#rnerator-plugins-update)
+* [`rnerator init`](#rnerator-init)
+* [`rnerator sandbox`](#rnerator-sandbox)
 
-## `rnerator hello PERSON`
+## `rnerator generate NAME`
 
-Say hello
+Generate a new element
 
 ```
 USAGE
-  $ rnerator hello [PERSON] -f <value>
+  $ rnerator generate [NAME] [-t <value>] [-l <value>] [-s] [-i]
 
 ARGUMENTS
-  PERSON  Person to say hello to
+  NAME  component Name
 
 FLAGS
-  -f, --from=<value>  (required) Whom is saying hello
+  -i, --indexDisabled     disabled the creation of an index file
+  -l, --location=<value>  location of the component generated
+  -s, --sandboxDisabled   disabled the creation of a sandbox file
+  -t, --template=<value>  [default: component] template used for the component generated
 
 DESCRIPTION
-  Say hello
+  Generate a new element
 
 EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
+  $ rnerator generate <name> --template=<template>
+
+  $ rnerator generate Test
+  CREATED src/components/Test/Test.tsx
+  CREATED src/components/Test/index.ts
+  CREATED src/components/Test/Test.sandbox.tsx
+  UPDATED src/sandbox/sandboxFiles.ts
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.0.0/dist/commands/hello/index.ts)_
-
-## `rnerator hello world`
-
-Say hello world
-
-```
-USAGE
-  $ rnerator hello world
-
-DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ oex hello world
-  hello world! (./src/commands/hello/world.ts)
-```
+_See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/generate/index.ts)_
 
 ## `rnerator help [COMMAND]`
 
@@ -100,235 +161,91 @@ DESCRIPTION
   Display help for rnerator.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.10/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.12/src/commands/help.ts)_
 
-## `rnerator plugins`
+## `rnerator init`
 
-List installed plugins.
+Initialize a new project
 
 ```
 USAGE
-  $ rnerator plugins [--core]
+  $ rnerator init [-j]
 
 FLAGS
-  --core  Show core plugins.
+  -j, --js  is a javascript project
 
 DESCRIPTION
-  List installed plugins.
+  Initialize a new project
 
 EXAMPLES
-  $ rnerator plugins
+  $ rnerator init
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/index.ts)_
+_See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/init/index.ts)_
 
-## `rnerator plugins:install PLUGIN...`
+## `rnerator sandbox`
 
-Installs a plugin into the CLI.
+Generate the sandboxFiles.ts file
 
 ```
 USAGE
-  $ rnerator plugins:install PLUGIN...
-
-ARGUMENTS
-  PLUGIN  Plugin to install.
-
-FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
+  $ rnerator sandbox
 
 DESCRIPTION
-  Installs a plugin into the CLI.
-
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-ALIASES
-  $ rnerator plugins add
+  Generate the sandboxFiles.ts file
 
 EXAMPLES
-  $ rnerator plugins:install myplugin 
-
-  $ rnerator plugins:install https://github.com/someuser/someplugin
-
-  $ rnerator plugins:install someuser/someplugin
+  $ rnerator sandbox
 ```
 
-## `rnerator plugins:inspect PLUGIN...`
-
-Displays installation properties of a plugin.
-
-```
-USAGE
-  $ rnerator plugins:inspect PLUGIN...
-
-ARGUMENTS
-  PLUGIN  [default: .] Plugin to inspect.
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Displays installation properties of a plugin.
-
-EXAMPLES
-  $ rnerator plugins:inspect myplugin
-```
-
-## `rnerator plugins:install PLUGIN...`
-
-Installs a plugin into the CLI.
-
-```
-USAGE
-  $ rnerator plugins:install PLUGIN...
-
-ARGUMENTS
-  PLUGIN  Plugin to install.
-
-FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Installs a plugin into the CLI.
-
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-ALIASES
-  $ rnerator plugins add
-
-EXAMPLES
-  $ rnerator plugins:install myplugin 
-
-  $ rnerator plugins:install https://github.com/someuser/someplugin
-
-  $ rnerator plugins:install someuser/someplugin
-```
-
-## `rnerator plugins:link PLUGIN`
-
-Links a plugin into the CLI for development.
-
-```
-USAGE
-  $ rnerator plugins:link PLUGIN
-
-ARGUMENTS
-  PATH  [default: .] path to plugin
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Links a plugin into the CLI for development.
-
-  Installation of a linked plugin will override a user-installed or core plugin.
-
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
-  command will override the user-installed or core plugin implementation. This is useful for development work.
-
-EXAMPLES
-  $ rnerator plugins:link myplugin
-```
-
-## `rnerator plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ rnerator plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ rnerator plugins unlink
-  $ rnerator plugins remove
-```
-
-## `rnerator plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ rnerator plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ rnerator plugins unlink
-  $ rnerator plugins remove
-```
-
-## `rnerator plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ rnerator plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ rnerator plugins unlink
-  $ rnerator plugins remove
-```
-
-## `rnerator plugins update`
-
-Update installed plugins.
-
-```
-USAGE
-  $ rnerator plugins update [-h] [-v]
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Update installed plugins.
-```
+_See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.1/dist/commands/sandbox/index.ts)_
 <!-- commandsstop -->
+
+# Templates
+
+When you execute the command **init** a folder is created with a unique template component.ts
+You can **edit** this one and **add** your own templates
+
+## Template Format
+
+All the templates must have the same format.
+
+```json
+{
+  "template": "import React from 'react'; import Box from '~core/Box'; import Text from '~core/Text'; type {{name}}Props = {}; const {{name}} = (props: {{name}}Props) => { return (<Box><Text>{{name}}</Text></Box>);};export default {{name}};",
+  "location": "components",
+  "sandboxDisabled": false
+}
+```
+
+# Sandbox
+
+The main interest of this component generator is the Sandbox environment automatically generated.
+
+It provide a sandbox view for all your component. In which you can develop your component. This is an alternative to Storybook for React Native
+
+## Folder structure
+
+When you initialize the project thanks to `rnerator init`
+a folder with this structure is created:
+
+```
+|-sandbox
+|-- App.tsx
+|-- Navigator.tsx
+|-- Home.tsx
+|-- sandboxFiles.ts
+|-- Wrapper.ts
+```
+
+## sandboxFiles
+
+Each time you generate a component with a sandbox file, sandboxFiles.ts is re-generated. (you can also re-regenerate this file thanks to `rnerator sandbox`)
+
+Thanks to `sandboxFiles.ts`, a navigator is created with all the Sandbox Files and the Home screen display a link for each screen.
+
+To develop your component in this sandBox environment you now just have to change the App in index.js **by src/sandbox/App.tsx**
+
+## Wrapper
+
+Thanks to this file you can Wrap your Sandbox Navigator with provider like ThemeProvider.

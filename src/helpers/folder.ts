@@ -1,42 +1,74 @@
-import { existsSync, mkdirSync } from 'fs';
-import { copySync } from 'fs-extra';
-
+import { exec } from 'child_process';
 import {
-  getStyledError,
-  logCreated,
-  logStepStart,
-  logStepSuccess,
-  logSubStep,
-  logUpdated,
-} from './logger';
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  statSync,
+  writeFileSync,
+} from 'fs';
+import { join } from 'path';
+import { ENTRY } from './const';
 
-export const createDir = (
-  dir: string,
+import { getStyledError, logCreated, logSubStep, logUpdated } from './logger';
+
+export const createFolder = (
+  path: string,
   config?: { silent?: boolean; shortPath?: string }
 ): void => {
   const { silent, shortPath } = { silent: false, ...config };
-  const logName = shortPath ?? dir;
-  if (!existsSync(dir)) {
-    mkdirSync(dir);
+  const logName = shortPath ?? path;
+
+  if (!existsSync(path)) {
+    mkdirSync(path);
     if (!silent) logCreated(logName);
   } else if (!silent) logSubStep(`${logName} folder already exists`);
 };
 
-export const copyFolder = (src: string, dest: string, shortPath?: string) => {
-  copySync(src, dest);
-  logUpdated(shortPath ?? dest);
-};
-export const makeStep = (
-  config: { stepName: string; stepNumber: number; stepTotal: number },
-  step: () => void
-) => {
-  logStepStart(config.stepName, config.stepNumber, config.stepTotal);
-  step();
-  logStepSuccess(config.stepNumber, config.stepTotal);
+const getPath = (name: string) => `${ENTRY}/${name}`;
+
+export const throwIfExists = (dir: string): void => {
+  if (existsSync(dir)) {
+    throw new Error(getStyledError(`${dir} already exists`));
+  }
 };
 
-export const throwIfExists = (dir: string, shortPath?: string): void => {
-  if (existsSync(dir)) {
-    throw new Error(getStyledError(`${shortPath ?? dir} already exists`));
-  }
+export const parseAFolder = (directory: string, files: string[]) => {
+  readdirSync(directory).forEach((File) => {
+    const Absolute = join(directory, File);
+    if (statSync(Absolute).isDirectory()) return parseAFolder(Absolute, files);
+    return files.push(Absolute);
+  });
+};
+
+const execEslint = (path: string) => {
+  exec(`yarn run eslint --fix ${path} --ignore-pattern **/*.json`);
+};
+const writeFileAndLint = (file: string, content: string) => {
+  writeFileSync(file, content);
+  execEslint(file);
+};
+export const createFileAndLint = (file: string, content: string) => {
+  writeFileAndLint(file, content);
+  logCreated(file);
+};
+export const updateFileAndLint = (file: string, content: string) => {
+  writeFileAndLint(file, content);
+  logUpdated(file);
+};
+
+const generateFilesFromConfig = (
+  path: string,
+  content: Record<string, string>
+) => {
+  Object.keys(content).forEach((file) => {
+    writeFileAndLint(join(path, file), content[file]);
+  });
+};
+
+export const createAndCopyFolder = (
+  name: string,
+  content: Record<string, string>
+) => {
+  createFolder(getPath(name));
+  generateFilesFromConfig(getPath(name), content);
 };
