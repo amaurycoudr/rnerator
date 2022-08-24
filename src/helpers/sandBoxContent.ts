@@ -1,3 +1,4 @@
+import { Extension } from './type';
 import { curryFileName, curryTextIfTs } from './utils';
 
 const app = `import * as React from 'react';
@@ -122,7 +123,7 @@ const Wrapper${textIfTs(': FC')} = ({ children }) => <>{children}</>;
 
 export default Wrapper;`;
 };
-const getSandboxContent = (extension: 'js' | 'ts' = 'ts') => {
+const getSandboxContent = (extension: Extension = 'ts') => {
   const isJs = extension === 'js';
   const getReactFileName = curryFileName({ extension, isReactFile: true });
   const getFileName = curryFileName({ extension, isReactFile: false });
