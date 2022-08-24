@@ -5,9 +5,9 @@ const component = (isJs: boolean) => {
   const textIfTs = curryTextIfTs(isJs);
   return {
     template: `import React from 'react';import { View } from 'react-native';${textIfTs(
-      'type {{name}}Props = {}'
-    )};const {{name}} = (props: ${textIfTs(
-      '{{name}}Props'
+      'type {{name}}Props = {};'
+    )}const {{name}} = (props${textIfTs(
+      ': {{name}}Props'
     )}) => {return (<View></View>)}; export default {{name}};`,
     location: 'components',
     sandboxDisabled: false,
