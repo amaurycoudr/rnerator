@@ -1,4 +1,4 @@
-import { getFileName } from '../../helpers/utils';
+import { getFileName } from './utils';
 
 const app = `import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';

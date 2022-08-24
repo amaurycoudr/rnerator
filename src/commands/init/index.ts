@@ -3,8 +3,8 @@ import chalk from 'chalk';
 import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../helpers/const';
 import { createAndCopyFolder, createFolder } from '../../helpers/folder';
 import { makeStep } from '../../helpers/logger';
-import getSandboxContent from './sandBoxContent';
-import templatesContent from './templateContent';
+import getSandboxContent from '../../helpers/sandBoxContent';
+import templatesContent from '../../helpers/templateContent';
 
 const gradient = require('gradient-string');
 
