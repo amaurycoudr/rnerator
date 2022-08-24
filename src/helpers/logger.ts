@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import chalk from 'chalk';
 
 export const getStyledError = (error: unknown) => `❌  ${chalk.red(error)}`;
