@@ -8,4 +8,8 @@ export const getFileName = (
   const { isReactFile, extension } = config;
   return `${name}.${extension}${isReactFile ? 'x' : ''}`;
 };
-export const test = '';
+
+export const curryTextIfTs =
+  (isJs: boolean) =>
+  (text: string): string =>
+    isJs ? '' : text;
