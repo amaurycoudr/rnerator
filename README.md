@@ -24,6 +24,9 @@ Generator of component for React Native. also provides a sandbox environment for
 - [Templates](#templates)
   - [Template Format](#template-format)
 - [Sandbox](#sandbox)
+  - [Folder structure](#folder-structure)
+  - [sandboxFiles](#sandboxfiles)
+  - [Wrapper](#wrapper)
 
 # Set Up
 
@@ -119,6 +122,9 @@ rnerator generate Button -l components/core
 - [Templates](#templates)
   - [Template Format](#template-format)
 - [Sandbox](#sandbox)
+  - [Folder structure](#folder-structure)
+  - [sandboxFiles](#sandboxfiles)
+  - [Wrapper](#wrapper)
 
 ## `rnerator generate NAME`
 
@@ -232,6 +238,10 @@ All the templates must have the same format.
 
 The main interest of this component generator is the Sandbox environment automatically generated.
 
+It provide a sandbox view for all your component. In which you can develop your component. This is an alternative to Storybook for React Native
+
+## Folder structure
+
 When you initialize the project thanks to `rnerator init`
 a folder with this structure is created:
 
@@ -244,8 +254,14 @@ a folder with this structure is created:
 |-- Wrapper.ts
 ```
 
-Each time you generate a component with a sandbox file, the component sandboxFiles.ts is re-generated. (you can also re-regenerate this file thanks to `rnerator sandbox`)
+## sandboxFiles
+
+Each time you generate a component with a sandbox file, sandboxFiles.ts is re-generated. (you can also re-regenerate this file thanks to `rnerator sandbox`)
 
 Thanks to `sandboxFiles.ts`, a navigator is created with all the Sandbox Files and the Home screen display a link for each screen.
 
-To develop your component in this sandBox environment you know just have to change the App in index.js **by src/sandbox/App.tsx**
+To develop your component in this sandBox environment you now just have to change the App in index.js **by src/sandbox/App.tsx**
+
+## Wrapper
+
+Thanks to this file you can Wrap your Sandbox Navigator with provider like ThemeProvider.
