@@ -1,4 +1,4 @@
-import { getFileName, curryTextIfTs } from './utils';
+import { curryFileName, curryTextIfTs } from './utils';
 
 const app = `import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -122,17 +122,17 @@ const Wrapper${textIfTs(': FC')} = ({ children }) => <>{children}</>;
 
 export default Wrapper;`;
 };
-const getSandboxContent = (extension: 'js' | 'ts' = 'ts') => ({
-  [getFileName('App', { isReactFile: true, extension })]: app,
-  [getFileName('Home', { isReactFile: true, extension })]: home(
-    extension === 'js'
-  ),
-  [getFileName('Navigator', { isReactFile: true, extension })]: navigator,
-  [getFileName('sandboxFiles', { isReactFile: false, extension })]:
-    sandboxFiles(extension === 'js'),
-  [getFileName('Wrapper', { isReactFile: true, extension })]: wrapper(
-    extension === 'js'
-  ),
-});
+const getSandboxContent = (extension: 'js' | 'ts' = 'ts') => {
+  const isJs = extension === 'js';
+  const getReactFileName = curryFileName({ extension, isReactFile: true });
+  const getFileName = curryFileName({ extension, isReactFile: false });
+  return {
+    [getReactFileName('App')]: app,
+    [getReactFileName('Home')]: home(isJs),
+    [getReactFileName('Navigator')]: navigator,
+    [getFileName('sandboxFiles')]: sandboxFiles(isJs),
+    [getReactFileName('Wrapper')]: wrapper(isJs),
+  };
+};
 
 export default getSandboxContent;
