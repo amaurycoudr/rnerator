@@ -30,8 +30,6 @@ Generator of component for React Native. also provides a sandbox environment for
 
 # Set Up
 
-First you need to install the package:
-
 ## Installation
 
 First you need to install the package.
@@ -45,6 +43,9 @@ You can install the CLI on your RN project or globally.
 ```bash
 # local installation
 npm install --save-dev rnerator
+```
+
+```bash
 # global installation
 npm install rnerator -g
 ```
@@ -54,6 +55,9 @@ npm install rnerator -g
 ```bash
 # local installation
 yarn add -D rnerator
+```
+
+```bash
 # global installation
 yarn global add rnerator
 ```
@@ -66,8 +70,14 @@ This will (if it doesn't exist) create **template**, **sandbox**, **components**
 ```bash
 # local npm installation
 npm exec rnerator init
+```
+
+```bash
 # local yarn installation
 yarn run rnerator init
+```
+
+```bash
 # global installation
 rnerator init
 ```
@@ -81,8 +91,14 @@ Know you can generate your component thanks to the **generate** command
 ```bash
 # local npm installation
 npm exec rnerator generate Button -l components/core
+```
+
+```bash
 # local yarn installation
 yarn run rnerator generate Button -l components/core
+```
+
+```bash
 # global installation
 rnerator generate Button -l components/core
 ```
@@ -90,22 +106,6 @@ rnerator generate Button -l components/core
 # Commands
 
 <!-- commands -->
-
-- [RNERATOR](#rnerator)
-- [Set Up](#set-up)
-  - [Installation](#installation)
-    - [npm](#npm)
-    - [yarn](#yarn)
-  - [Initialization](#initialization)
-  - [Component Generation](#component-generation)
-- [Commands](#commands)
-  - [`rnerator generate NAME`](#rnerator-generate-name)
-  - [`rnerator help [COMMAND]`](#rnerator-help-command)
-  - [`rnerator init`](#rnerator-init)
-  - [`rnerator sandbox`](#rnerator-sandbox)
-- [Templates](#templates)
-  - [Template Format](#template-format)
-- [Sandbox](#sandbox)
 
 ## `rnerator generate NAME`
 
