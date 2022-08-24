@@ -1,8 +1,8 @@
 import { Extension } from './type';
-import { curryTextIfTs } from './utils';
+import { getNoTextIfJs } from './utils';
 
 const component = (isJs: boolean) => {
-  const textIfTs = curryTextIfTs(isJs);
+  const textIfTs = getNoTextIfJs(isJs);
   return {
     template: `import React from 'react';import { View } from 'react-native';${textIfTs(
       'type {{name}}Props = {};'

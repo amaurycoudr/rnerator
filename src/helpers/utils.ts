@@ -5,7 +5,7 @@ export const curryFileName =
     return `${name}.${extension}${isReactFile ? 'x' : ''}`;
   };
 
-export const curryTextIfTs =
+export const getNoTextIfJs =
   (isJs: boolean) =>
   (text: string): string =>
     isJs ? '' : text;
