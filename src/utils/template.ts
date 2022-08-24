@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { compile } from 'handlebars';
-import { ENTRY, TEMPLATES } from './const';
+import { PATH, TEMPLATES } from '../const';
 import { createFileAndLint } from './folder';
 
 export const errorTemplateNotFound = () =>
@@ -13,7 +13,7 @@ export const errorTemplateNotFound = () =>
   );
 
 export const getTemplatePathFromName = (templateName: string): string =>
-  `${process.cwd()}/${ENTRY}/${TEMPLATES}/${templateName}.json`;
+  `${PATH}/${TEMPLATES}/${templateName}.json`;
 
 const getTemplate = async (name: string) => {
   try {

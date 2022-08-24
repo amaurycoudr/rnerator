@@ -1,5 +1,5 @@
-import { Extension } from './type';
-import { curryFileName, getNoTextIfJs } from './utils';
+import { Extension } from '../type/type';
+import { curryFileName, getNoTextIfJs } from '../utils/string';
 
 const app = `import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';

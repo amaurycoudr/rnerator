@@ -34,7 +34,7 @@ export const logUpdated = (dir: string) => {
   logSubStep(getUpdated(dir));
 };
 
-export const makeStep = <T>(
+export const makeStepWithLog = <T>(
   config: { name: string; number: number; total: number },
   step: () => T
 ) => {

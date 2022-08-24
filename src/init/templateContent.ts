@@ -1,5 +1,6 @@
-import { Extension } from './type';
-import { getNoTextIfJs } from './utils';
+import { COMPONENTS } from '../const';
+import { Extension } from '../type/type';
+import { getNoTextIfJs } from '../utils/string';
 
 const component = (isJs: boolean) => {
   const textIfTs = getNoTextIfJs(isJs);
@@ -9,7 +10,7 @@ const component = (isJs: boolean) => {
     )}const {{name}} = (props${textIfTs(
       ': {{name}}Props'
     )}) => {return (<View></View>)}; export default {{name}};`,
-    location: 'components',
+    location: COMPONENTS,
     sandboxDisabled: false,
   };
 };

@@ -2,15 +2,15 @@ import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
 import { existsSync, readdirSync } from 'fs';
 import { extname } from 'path';
-import { ENTRY, SANDBOX } from '../../helpers/const';
-import { createFolder, throwIfExists } from '../../helpers/folder';
-import { getCreated, getUpdated } from '../../helpers/logger';
-import { updateSandBoxFile } from '../../helpers/sandbox';
+import { ENTRY, SANDBOX } from '../../const';
+import { createFolder, throwIfExists } from '../../utils/folder';
+import { getCreated, getUpdated } from '../../utils/logger';
+import { updateSandboxFiles } from '../../utils/sandbox';
 import {
   createFileFromTemplate,
   errorTemplateNotFound,
   getTemplatePathFromName,
-} from '../../helpers/template';
+} from '../../utils/template';
 
 export default class Generate extends Command {
   static description = 'Generate a new element';
@@ -88,7 +88,7 @@ export default class Generate extends Command {
     }
     if (!sandboxDisabled) {
       await createFileFromTemplate({ name }, 'sandbox', sandboxPath);
-      updateSandBoxFile();
+      updateSandboxFiles();
     }
   }
 

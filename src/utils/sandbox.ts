@@ -1,4 +1,4 @@
-import { ENTRY, SANDBOX } from './const';
+import { ENTRY, SANDBOX } from '../const';
 import { parseAFolder, updateFileAndLint } from './folder';
 
 const fileStart =
@@ -18,7 +18,7 @@ export const getSandBoxes = () => {
   return files.filter((file) => file.includes(`.${SANDBOX}.`));
 };
 const formatSandBox = (sandbox: string) => {
-  const name = sandbox.replace('.sandbox.tsx', '').split('/')[
+  const name = sandbox.replace(`.${SANDBOX}.tsx`, '').split('/')[
     sandbox.split('/').length - 1
   ];
 
@@ -34,7 +34,7 @@ const formatSandBox = (sandbox: string) => {
 const generateData = (sandboxes: string[]) =>
   `${fileStart}const data: SandBoxInfo[] = [${sandboxes.join(',')}];${fileEnd}`;
 
-export const updateSandBoxFile = () => {
+export const updateSandboxFiles = () => {
   const sandboxes = getSandBoxes();
   const data = generateData(sandboxes.map(formatSandBox));
   updateFileAndLint(`${ENTRY}/${SANDBOX}/sandboxFiles.ts`, data);
