@@ -9,8 +9,6 @@ Generator of component for React Native. also provides a sandbox environment for
 [![Downloads/week](https://img.shields.io/npm/dm/rnerator)](https://www.npmjs.com/package/rnerator)
 [![License](https://img.shields.io/npm/l/rnerator)](https://github.com/amaurycoudr/rnerator/blob/master/package.json)
 
-<!-- toc -->
-
 - [RNERATOR](#rnerator)
 - [Set Up](#set-up)
   - [Installation](#installation)
@@ -26,7 +24,6 @@ Generator of component for React Native. also provides a sandbox environment for
 - [Templates](#templates)
   - [Template Format](#template-format)
 - [Sandbox](#sandbox)
-  <!-- tocstop -->
 
 # Set Up
 
@@ -107,36 +104,50 @@ rnerator generate Button -l components/core
 
 <!-- commands -->
 
+- [RNERATOR](#rnerator)
+- [Set Up](#set-up)
+  - [Installation](#installation)
+    - [npm](#npm)
+    - [yarn](#yarn)
+  - [Initialization](#initialization)
+  - [Component Generation](#component-generation)
+- [Commands](#commands)
+  - [`rnerator generate NAME`](#rnerator-generate-name)
+  - [`rnerator help [COMMAND]`](#rnerator-help-command)
+  - [`rnerator init`](#rnerator-init)
+  - [`rnerator sandbox`](#rnerator-sandbox)
+- [Templates](#templates)
+  - [Template Format](#template-format)
+- [Sandbox](#sandbox)
+
 ## `rnerator generate NAME`
 
 Generate a new element
 
 ```
-
 USAGE
-$ rnerator generate [NAME] [-t <value>] [-l <value>] [-s] [-i]
+  $ rnerator generate [NAME] [-t <value>] [-l <value>] [-s] [-i]
 
 ARGUMENTS
-NAME component Name
+  NAME  component Name
 
 FLAGS
--i, --indexDisabled disabled the creation of an index file
--l, --location=<value> location of the component generated
--s, --sandboxDisabled disabled the creation of a sandbox file
--t, --template=<value> [default: component] template used for the component generated
+  -i, --indexDisabled     disabled the creation of an index file
+  -l, --location=<value>  location of the component generated
+  -s, --sandboxDisabled   disabled the creation of a sandbox file
+  -t, --template=<value>  [default: component] template used for the component generated
 
 DESCRIPTION
-Generate a new element
+  Generate a new element
 
 EXAMPLES
-$ rnerator generate <name> --template=<template>
+  $ rnerator generate <name> --template=<template>
 
-$ rnerator generate Test
-CREATED src/components/Test/Test.tsx
-CREATED src/components/Test/index.ts
-CREATED src/components/Test/Test.sandbox.tsx
-UPDATED src/sandbox/sandboxFiles.ts
-
+  $ rnerator generate Test
+  CREATED src/components/Test/Test.tsx
+  CREATED src/components/Test/index.ts
+  CREATED src/components/Test/Test.sandbox.tsx
+  UPDATED src/sandbox/sandboxFiles.ts
 ```
 
 _See code: [dist/commands/generate/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/generate/index.ts)_
@@ -147,16 +158,16 @@ Display help for rnerator.
 
 ```
 USAGE
-$ rnerator help [COMMAND] [-n]
+  $ rnerator help [COMMAND] [-n]
 
 ARGUMENTS
-COMMAND Command to show help for.
+  COMMAND  Command to show help for.
 
 FLAGS
--n, --nested-commands Include all nested commands in the output.
+  -n, --nested-commands  Include all nested commands in the output.
 
 DESCRIPTION
-Display help for rnerator.
+  Display help for rnerator.
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.12/src/commands/help.ts)_
@@ -166,20 +177,17 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.1
 Initialize a new project
 
 ```
-
 USAGE
-$ rnerator init [-o] [-j]
+  $ rnerator init [-j]
 
 FLAGS
--j, --js is a javascript project
--o, --overwrite force the overwrite of the existing file
+  -j, --js  is a javascript project
 
 DESCRIPTION
-Initialize a new project
+  Initialize a new project
 
 EXAMPLES
-$ rnerator init
-
+  $ rnerator init
 ```
 
 _See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/init/index.ts)_
@@ -189,16 +197,14 @@ _See code: [dist/commands/init/index.ts](https://github.com/amaurycoudr/rnerator
 Generate the sandboxFiles.ts file
 
 ```
-
 USAGE
-$ rnerator sandbox
+  $ rnerator sandbox
 
 DESCRIPTION
-Generate the sandboxFiles.ts file
+  Generate the sandboxFiles.ts file
 
 EXAMPLES
-$ rnerator sandbox
-
+  $ rnerator sandbox
 ```
 
 _See code: [dist/commands/sandbox/index.ts](https://github.com/amaurycoudr/rnerator/blob/v0.7.0/dist/commands/sandbox/index.ts)_
