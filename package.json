@@ -75,8 +75,8 @@
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "yarn lint",
     "prepack": "yarn build && oclif manifest && oclif readme",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "test:watch": " mocha --watch --watch-files src/**/*.ts,test/**/*.ts --forbid-only \"test/**/*.test.ts\"",
+    "test": "mocha --forbid-only \"src/**/*.test.ts\"",
+    "test:watch": " mocha --watch --watch-files src/**/*.ts --forbid-only \"src/**/*.test.ts\"",
     "version": "oclif readme && git add README.md"
   },
   "engines": {

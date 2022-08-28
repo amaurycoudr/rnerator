@@ -2,7 +2,7 @@ import { map, pipe } from 'ramda';
 import { ENTRY, SANDBOX } from '../const';
 import { Extension, NamePath } from '../type/type';
 import { getFolderFiles } from './folder';
-import JsTsFile from './JsTsFile';
+import JsTsFile from '../JsTsFile/JsTsFile';
 import { getNoTextIfJs } from './string';
 
 const getFileStart = (extension: Extension) =>

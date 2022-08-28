@@ -1,5 +1,5 @@
-import FolderGetter from '../../src/Folder/FolderGetter';
-import { testClass } from '../helpers/utils';
+import FolderGetter from './FolderGetter';
+import { testClass } from '../utils/test';
 
 describe(testClass(FolderGetter), () => {
   describe('test getFiles()', () => {

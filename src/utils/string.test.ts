@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { getFileName, getNoTextIfJs } from '../../src/utils/string';
-import { shouldReturnFor, testFn } from '../helpers/utils';
+import { getFileName, getNoTextIfJs } from './string';
+import { shouldReturnFor, testFn } from './test';
 
 describe('string.ts test', () => {
   describe(testFn(getFileName), () => {

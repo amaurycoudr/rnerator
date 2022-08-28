@@ -1,11 +1,11 @@
 import { Extension } from '../type/type';
 
 export default class JsTsFile {
-  protected path: string;
+  public path: string;
 
-  protected isReact: boolean;
+  public isReact: boolean;
 
-  protected get extension() {
+  public get extension() {
     return this.path.includes('.js') ? 'js' : 'ts';
   }
 
