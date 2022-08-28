@@ -10,6 +10,5 @@
     "target": "es2019",
     "noImplicitAny": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*"]
 }

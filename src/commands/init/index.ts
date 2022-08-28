@@ -6,6 +6,7 @@ import { makeStepWithLog } from '../../utils/logger';
 import getTemplateContent from '../../init/templateContent';
 import { Extension } from '../../type/type';
 import getSandboxContent from '../../init/sandboxContent';
+import SandboxHandler from '../../sandbox/SandboxHandler';
 
 const gradient = require('gradient-string');
 
@@ -78,7 +79,10 @@ export default class Init extends Command {
         number: 4,
         total: Init.stepsNumber,
       },
-      () => createAndCopyFolder(SANDBOX, getSandboxContent(extension))
+      () => {
+        createAndCopyFolder(SANDBOX, getSandboxContent(extension));
+        SandboxHandler.generateSandboxFiles();
+      }
     );
   }
 }

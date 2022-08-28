@@ -3,10 +3,15 @@ import { SANDBOX } from './const';
 import { getPath } from './utils/path';
 
 const getExtension = () => {
-  const appPath = getPath(SANDBOX, 'App.jsx');
-  return existsSync(appPath) ? 'js' : 'ts';
+  const appJsPath = getPath(SANDBOX, 'App.jsx');
+  const appTsPath = getPath(SANDBOX, 'App.tsx');
+  if (!existsSync(appJsPath) && !existsSync(appTsPath)) {
+    throw new Error(
+      'No App.jsx or App.tsx file found in sandbox folder the Project as not been initialized'
+    );
+  }
+  return existsSync(appJsPath) ? 'js' : 'ts';
 };
 /** can be used in a init project (check if App.js exists) */
-const extension = getExtension();
 
-export default extension;
+export default getExtension;

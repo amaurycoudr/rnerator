@@ -2,7 +2,8 @@ import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
 import { SANDBOX } from '../../const';
 import extension from '../../extension';
-import generateSandboxFiles from '../../core/sandbox/command';
+import SandboxHandler from '../../sandbox/SandboxHandler';
+
 import { createFolder, throwIfExists } from '../../utils/folder';
 import { getCreated, getUpdated } from '../../utils/logger';
 import { getPath } from '../../utils/path';
@@ -75,12 +76,12 @@ export default class Generate extends Command {
       await createFileFromTemplate(
         { name },
         'index',
-        `${folderName}/index.${extension}x`
+        `${folderName}/index.${extension()}x`
       );
     }
     if (!sandboxDisabled) {
       await createFileFromTemplate({ name }, 'sandbox', sandboxPath);
-      generateSandboxFiles(extension);
+      SandboxHandler.generateSandboxFiles();
     }
   }
 
