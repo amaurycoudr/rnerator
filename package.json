@@ -76,7 +76,7 @@
     "posttest": "yarn lint",
     "prepack": "yarn build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"src/**/*.test.ts\"",
-    "test:watch": " mocha --watch --watch-files src/**/*.ts --forbid-only \"src/**/*.test.ts\"",
+    "test:watch": " mocha --watch --watch-files src/**/*.ts, --forbid-only \"src/**/*.test.ts\"",
     "version": "oclif readme && git add README.md"
   },
   "engines": {
