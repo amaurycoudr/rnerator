@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import SandboxString from './SandboxString';
+import SandboxFile from './SandboxFile';
 
 import { shouldReturnFor, testClass } from '../utils/test';
 
@@ -9,17 +9,17 @@ const TestSandboxString =
 const TestSandboxPath = 'src/components/Test.sandbox.jsx';
 const ErrorSandboxPath = 'src/components/Error.jsx';
 
-describe(testClass(SandboxString), () => {
+describe(testClass(SandboxFile), () => {
   describe('test constructor()', () => {
     it("should throw an error if the path doesn't include sandbox", () => {
-      expect(() => new SandboxString(ErrorSandboxPath)).to.throw(
+      expect(() => new SandboxFile(ErrorSandboxPath)).to.throw(
         'Invalid sandbox path'
       );
     });
   });
   describe('test getString()', () => {
     it(shouldReturnFor(TestSandboxString, TestSandboxPath), () => {
-      expect(SandboxString.new(TestSandboxPath).string).to.equal(
+      expect(SandboxFile.new(TestSandboxPath).string).to.equal(
         TestSandboxString
       );
     });

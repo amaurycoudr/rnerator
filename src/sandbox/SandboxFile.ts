@@ -3,14 +3,14 @@ import { ENTRY, SANDBOX } from '../const';
 import { NamePath } from '../type/type';
 import JsTsFile from '../JsTsFile/JsTsFile';
 
-class SandboxString extends JsTsFile {
+class SandboxFile extends JsTsFile {
   constructor(path: string) {
     if (!path.includes(SANDBOX)) throw new Error('Invalid sandbox path');
     super(path, true);
   }
 
   get string() {
-    return pipe(this.getInfo, SandboxString.getStringFromInfo)();
+    return pipe(this.getInfo, SandboxFile.getStringFromInfo)();
   }
 
   private static getStringFromInfo = ({ name, path }: NamePath) =>
@@ -32,7 +32,7 @@ class SandboxString extends JsTsFile {
 
   private getRelativePath = () => this.path.replace(ENTRY, '..');
 
-  static new = (path: string) => new SandboxString(path);
+  static new = (path: string) => new SandboxFile(path);
 }
 
-export default SandboxString;
+export default SandboxFile;

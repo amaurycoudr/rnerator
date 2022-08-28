@@ -1,9 +1,9 @@
 import { Extension } from '../type/type';
 import { getNoTextIfJs } from '../utils/string';
-import SandboxString from './SandboxString';
+import SandboxFile from './SandboxFile';
 
 class SandboxFilesContent {
-  private paths: string[];
+  private sandboxString: SandboxFile[];
 
   private extension: Extension = 'ts';
 
@@ -18,7 +18,7 @@ class SandboxFilesContent {
   private fileEnd = '\nexport default data;';
 
   constructor(paths: string[], extension: Extension) {
-    this.paths = paths;
+    this.sandboxString = paths.map(SandboxFile.new);
     this.extension = extension;
   }
 
@@ -32,7 +32,7 @@ class SandboxFilesContent {
     )} = [${this.getSandboxDataList()}];`;
 
   private getSandboxDataList = () =>
-    this.paths.map((path) => SandboxString.new(path).string);
+    this.sandboxString.map((path) => path.string);
 }
 
 export default SandboxFilesContent;
