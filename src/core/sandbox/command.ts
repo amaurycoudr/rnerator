@@ -1,17 +1,16 @@
 import { SANDBOX } from '../../const';
+import SandboxFilesContent from '../../sandbox/SandboxFilesContent';
 import { Extension } from '../../type/type';
 import { updateFileAndLint } from '../../utils/folder';
 import { getPath } from '../../utils/path';
-import {
-  generateSandboxFilesContent,
-  getSandboxPaths,
-} from '../../utils/Sandbox';
+import { getSandboxPaths } from '../../utils/Sandbox';
 
 const generateSandboxFiles = (extension: Extension) => {
   const sandboxes = getSandboxPaths();
-  const content = generateSandboxFilesContent(extension)(sandboxes);
+  const sandboxFilesContent = new SandboxFilesContent(sandboxes, extension);
   const path = getPath(SANDBOX, `sandboxFiles.${extension}`);
-  updateFileAndLint(path, content);
+
+  updateFileAndLint(path, sandboxFilesContent.content);
 };
 
 export default generateSandboxFiles;
