@@ -13,7 +13,7 @@ export default class JsTsFile {
     this.isReact = isReact;
     if (this.isExtensionInvalid(path))
       throw new Error(
-        `Invalid File extension must be ${
+        `Invalid file extension must be ${
           isReact ? '.jsx or .tsx' : '.js or .ts'
         }`
       );
