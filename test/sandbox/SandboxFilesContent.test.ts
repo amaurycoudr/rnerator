@@ -26,23 +26,23 @@ const oneElementSandboxFilesContentJS =
 
 describe(testClass(SandboxFilesContent), () => {
   it('should return the emptySandboxFilesContentTS when paths is [] and extension is ts', () => {
-    expect(new SandboxFilesContent([], 'ts').getContent()).to.equal(
+    expect(new SandboxFilesContent([], 'ts').content).to.equal(
       emptySandboxFilesContentTS
     );
   });
   it('should return the emptySandboxFilesContentJS when paths is [] and extension is js', () => {
-    expect(new SandboxFilesContent([], 'js').getContent()).to.equal(
+    expect(new SandboxFilesContent([], 'js').content).to.equal(
       emptySandboxFilesContentJS
     );
   });
   it('should return the oneElementSandboxFilesContentTS when paths is ["src/test.sandbox.tsx"] and extension is ts', () => {
     expect(
-      new SandboxFilesContent(['src/test.sandbox.tsx'], 'ts').getContent()
+      new SandboxFilesContent(['src/test.sandbox.tsx'], 'ts').content
     ).to.equal(oneElementSandboxFilesContentTS);
   });
   it('should return the oneElementSandboxFilesContentJS when paths is ["src/test.sandbox.jsx"] and extension is js', () => {
     expect(
-      new SandboxFilesContent(['src/test.sandbox.jsx'], 'js').getContent()
+      new SandboxFilesContent(['src/test.sandbox.jsx'], 'js').content
     ).to.equal(oneElementSandboxFilesContentJS);
   });
 });

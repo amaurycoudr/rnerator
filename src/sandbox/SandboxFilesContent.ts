@@ -22,7 +22,9 @@ class SandboxFilesContent {
     this.extension = extension;
   }
 
-  getContent = () => this.getFileStart() + this.getData() + this.fileEnd;
+  get content() {
+    return this.getFileStart() + this.getData() + this.fileEnd;
+  }
 
   private getData = () =>
     `\nconst data${getNoTextIfJs(this.extension)(
