@@ -1,4 +1,6 @@
-export const curryFileName =
+import { Extension } from '../type/type';
+
+export const getFileName =
   (config: { extension: 'ts' | 'js'; isReactFile: boolean }) =>
   (name: string): string => {
     const { isReactFile, extension } = config;
@@ -6,6 +8,6 @@ export const curryFileName =
   };
 
 export const getNoTextIfJs =
-  (isJs: boolean) =>
+  (extension: Extension) =>
   (text: string): string =>
-    isJs ? '' : text;
+    extension === 'js' ? '' : text;
