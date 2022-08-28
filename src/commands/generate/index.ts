@@ -115,8 +115,8 @@ export default class Generate extends Command {
     const originFolder = getPath(location ?? defaultLocation);
 
     const folderName = `${originFolder}/${name}`;
-    const fileName = `${folderName}/${name}.${extension}x`;
-    const sandboxPath = `${folderName}/${name}.${SANDBOX}.${extension}x`;
+    const fileName = `${folderName}/${name}.${extension()}x`;
+    const sandboxPath = `${folderName}/${name}.${SANDBOX}.${extension()}x`;
 
     return {
       folderName,
