@@ -1,21 +1,21 @@
 import { readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
-class FolderGetter {
+class Folder {
   private path: string;
 
   constructor(path: string) {
     this.path = path;
   }
 
-  getFiles(): string[] {
+  get files(): string[] {
     return readdirSync(this.path).flatMap((File) => {
       const path = join(this.path, File);
       if (statSync(path).isDirectory()) {
-        return new FolderGetter(path).getFiles();
+        return new Folder(path).files;
       }
       return path;
     });
   }
 }
-export default FolderGetter;
+export default Folder;
