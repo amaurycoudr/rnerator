@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { testClass } from '../helpers/utils';
+import { shouldReturnFor, testClass } from '../helpers/utils';
 import SandboxFilesContent from '../../src/sandbox/SandboxFilesContent';
 
 const emptySandboxFilesContentTS =
@@ -25,24 +25,48 @@ const oneElementSandboxFilesContentJS =
   'const data = [{name:"test",location:"../test.sandbox.jsx",component: require("../test.sandbox.jsx").default}];\nexport default data;';
 
 describe(testClass(SandboxFilesContent), () => {
-  it('should return the emptySandboxFilesContentTS when paths is [] and extension is ts', () => {
-    expect(new SandboxFilesContent([], 'ts').content).to.equal(
-      emptySandboxFilesContentTS
-    );
-  });
-  it('should return the emptySandboxFilesContentJS when paths is [] and extension is js', () => {
-    expect(new SandboxFilesContent([], 'js').content).to.equal(
-      emptySandboxFilesContentJS
-    );
-  });
-  it('should return the oneElementSandboxFilesContentTS when paths is ["src/test.sandbox.tsx"] and extension is ts', () => {
-    expect(
-      new SandboxFilesContent(['src/test.sandbox.tsx'], 'ts').content
-    ).to.equal(oneElementSandboxFilesContentTS);
-  });
-  it('should return the oneElementSandboxFilesContentJS when paths is ["src/test.sandbox.jsx"] and extension is js', () => {
-    expect(
-      new SandboxFilesContent(['src/test.sandbox.jsx'], 'js').content
-    ).to.equal(oneElementSandboxFilesContentJS);
-  });
+  it(
+    shouldReturnFor(
+      'the emptySandboxFilesContentTS',
+      'paths=[] & extension ts'
+    ),
+    () => {
+      expect(new SandboxFilesContent([], 'ts').content).to.equal(
+        emptySandboxFilesContentTS
+      );
+    }
+  );
+  it(
+    shouldReturnFor(
+      'the emptySandboxFilesContentJS',
+      'paths=[] & extension js'
+    ),
+    () => {
+      expect(new SandboxFilesContent([], 'js').content).to.equal(
+        emptySandboxFilesContentJS
+      );
+    }
+  );
+  it(
+    shouldReturnFor(
+      'the oneElementSandboxFilesContentTS',
+      'paths=[src/test.sandbox.tsx] & extension ts'
+    ),
+    () => {
+      expect(
+        new SandboxFilesContent(['src/test.sandbox.tsx'], 'ts').content
+      ).to.equal(oneElementSandboxFilesContentTS);
+    }
+  );
+  it(
+    shouldReturnFor(
+      'the oneElementSandboxFilesContentJS',
+      'paths=[src/test.sandbox.jsx] & extension js'
+    ),
+    () => {
+      expect(
+        new SandboxFilesContent(['src/test.sandbox.jsx'], 'js').content
+      ).to.equal(oneElementSandboxFilesContentJS);
+    }
+  );
 });
