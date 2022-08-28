@@ -17,5 +17,9 @@ class Folder {
       return path;
     });
   }
+
+  getFilteredFiles(filter: (file: string) => boolean): string[] {
+    return this.files.filter(filter);
+  }
 }
 export default Folder;
