@@ -2,11 +2,11 @@
 import { expect } from 'chai';
 import { existsSync, readFileSync } from 'fs';
 import mock from 'mock-fs';
-import { testClass } from '../utils/test';
+import { testClass } from '../../utils/test';
 import {
   emptySandboxFilesContentTS,
   oneElementSandboxFilesContentTS,
-} from './SandboxFilesContent.test';
+} from '../SandboxFilesContent/SandboxFilesContent.test';
 import SandboxHandler from './SandboxHandler';
 
 const noSandboxTS = {

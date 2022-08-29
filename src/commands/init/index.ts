@@ -6,7 +6,7 @@ import { makeStepWithLog } from '../../utils/logger';
 import getTemplateContent from '../../init/templateContent';
 import { Extension } from '../../type/type';
 import getSandboxContent from '../../init/sandboxContent';
-import SandboxHandler from '../../Sandbox/SandboxHandler';
+import SandboxHandler from '../../Sandbox/SandboxHandler/SandboxHandler';
 
 const gradient = require('gradient-string');
 

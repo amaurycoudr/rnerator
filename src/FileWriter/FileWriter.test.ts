@@ -35,6 +35,12 @@ describe(testClass(FileWriter), () => {
       new FileWriter(path, newContent).write();
       expect(readFileSync(path).toString()).to.equal(newContent);
     });
+    it("shouldn't update a file if it exists and overwrite is false", () => {
+      mock(oneFileSrc);
+      const newContent = 'new content';
+      new FileWriter(path, newContent).write({ overwrite: false });
+      expect(readFileSync(path).toString()).to.equal(content);
+    });
   });
 
   describe('testing logging', () => {

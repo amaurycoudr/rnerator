@@ -20,20 +20,22 @@ export default class FileWriter {
   private static defaultWritingOptions = {
     lintAfterWriting: false,
     silent: false,
+    overwrite: true,
   };
 
   public write = (
     options?: Partial<typeof FileWriter.defaultWritingOptions>
   ) => {
-    const { lintAfterWriting, silent } = {
+    const { lintAfterWriting, silent, overwrite } = {
       ...FileWriter.defaultWritingOptions,
       ...options,
     };
     const existedBefore = this.alreadyExists;
 
-    writeFileSync(this.path, this.content);
+    if (overwrite || !existedBefore) writeFileSync(this.path, this.content);
 
     if (lintAfterWriting) this.lintFile();
+
     if (!silent) Logger.log(this.path, FileWriter.logKind(existedBefore));
   };
 }
