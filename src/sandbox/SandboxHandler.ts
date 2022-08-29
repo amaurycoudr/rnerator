@@ -1,8 +1,7 @@
-import { writeFileSync } from 'fs';
+import FileWriter from '../FileWriter/FileWriter';
+import Folder from '../Folder/Folder';
 import { ENTRY, SANDBOX, SANDBOX_FILES } from '../utils/const';
 import getProjectExtension from '../utils/getProjectExtension';
-import Folder from '../Folder/Folder';
-import { logUpdated } from '../utils/logger';
 import { getPath } from '../utils/path';
 import SandboxFilesContent from './SandboxFilesContent';
 
@@ -11,11 +10,10 @@ export default class SandboxHandler {
     const files = this.getSandboxFiles();
     const content = this.generateSandboxFilesContent(files);
 
-    writeFileSync(
+    new FileWriter(
       getPath(SANDBOX, `${SANDBOX_FILES}.${getProjectExtension()}`),
       content
-    );
-    logUpdated(getPath(SANDBOX, `${SANDBOX_FILES}.${getProjectExtension()}`));
+    ).write('update');
   };
 
   private static getSandboxFiles() {
