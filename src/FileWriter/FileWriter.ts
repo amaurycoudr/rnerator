@@ -14,7 +14,7 @@ export default class FileWriter {
   }
 
   private lintFile() {
-    execSync(`yarn run eslint --fix ${this.path} --ignore-pattern **/*.json`);
+    execSync(`yarn run eslint --fix ${this.path} --ext .ts,.js,.tsx,.jsx`);
   }
 
   public write = (
