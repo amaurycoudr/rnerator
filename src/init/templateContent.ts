@@ -1,4 +1,4 @@
-import { COMPONENTS } from '../const';
+import { COMPONENTS } from '../utils/const';
 import { Extension } from '../type/type';
 import { getNoTextIfJs } from '../utils/string';
 

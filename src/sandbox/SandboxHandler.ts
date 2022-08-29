@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
-import { ENTRY, SANDBOX, SANDBOX_FILES } from '../const';
-import getExtension from '../extension';
+import { ENTRY, SANDBOX, SANDBOX_FILES } from '../utils/const';
+import getProjectExtension from '../utils/getProjectExtension';
 import Folder from '../Folder/Folder';
 import { logUpdated } from '../utils/logger';
 import { getPath } from '../utils/path';
@@ -12,10 +12,10 @@ export default class SandboxHandler {
     const content = this.generateSandboxFilesContent(files);
 
     writeFileSync(
-      getPath(SANDBOX, `${SANDBOX_FILES}.${getExtension()}`),
+      getPath(SANDBOX, `${SANDBOX_FILES}.${getProjectExtension()}`),
       content
     );
-    logUpdated(getPath(SANDBOX, `${SANDBOX_FILES}.${getExtension()}`));
+    logUpdated(getPath(SANDBOX, `${SANDBOX_FILES}.${getProjectExtension()}`));
   };
 
   private static getSandboxFiles() {
@@ -25,5 +25,5 @@ export default class SandboxHandler {
   }
 
   private static generateSandboxFilesContent = (paths: string[]) =>
-    new SandboxFilesContent(paths, getExtension()).content;
+    new SandboxFilesContent(paths, getProjectExtension()).content;
 }

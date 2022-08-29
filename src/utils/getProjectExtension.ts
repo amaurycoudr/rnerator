@@ -1,8 +1,8 @@
 import { existsSync } from 'fs';
 import { SANDBOX } from './const';
-import { getPath } from './utils/path';
+import { getPath } from './path';
 
-const getExtension = () => {
+const getProjectExtension = () => {
   const appJsPath = getPath(SANDBOX, 'App.jsx');
   const appTsPath = getPath(SANDBOX, 'App.tsx');
   if (!existsSync(appJsPath) && !existsSync(appTsPath)) {
@@ -14,4 +14,4 @@ const getExtension = () => {
 };
 /** can be used in a init project (check if App.js exists) */
 
-export default getExtension;
+export default getProjectExtension;

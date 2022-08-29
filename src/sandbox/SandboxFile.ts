@@ -1,5 +1,5 @@
 import { pipe } from 'ramda';
-import { ENTRY, SANDBOX } from '../const';
+import { ENTRY, SANDBOX } from '../utils/const';
 import { NamePath } from '../type/type';
 import JsTsFile from '../JsTsFile/JsTsFile';
 

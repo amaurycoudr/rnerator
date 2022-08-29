@@ -1,7 +1,7 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { SANDBOX } from '../../const';
-import extension from '../../extension';
+import { SANDBOX } from '../../utils/const';
+import extension from '../../utils/getProjectExtension';
 import SandboxHandler from '../../sandbox/SandboxHandler';
 
 import { createFolder, throwIfExists } from '../../utils/folder';

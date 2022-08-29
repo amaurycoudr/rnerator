@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { compile } from 'handlebars';
-import { PATH, TEMPLATES } from '../const';
+import { PATH, TEMPLATES } from './const';
 import { createFileAndLint } from './folder';
 
 export const errorTemplateNotFound = () =>

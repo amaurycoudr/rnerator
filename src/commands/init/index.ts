@@ -1,6 +1,6 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../const';
+import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../utils/const';
 import { createAndCopyFolder, createFolder } from '../../utils/folder';
 import { makeStepWithLog } from '../../utils/logger';
 import getTemplateContent from '../../init/templateContent';
