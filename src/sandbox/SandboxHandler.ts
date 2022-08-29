@@ -1,5 +1,5 @@
 import FileWriter from '../FileWriter/FileWriter';
-import Folder from '../FolderFiles/FolderFiles';
+import FolderFiles from '../Folder/FolderFiles/FolderFiles';
 import { ENTRY, SANDBOX, SANDBOX_FILES } from '../utils/const';
 import getProjectExtension from '../utils/getProjectExtension';
 import { getPath } from '../utils/path';
@@ -17,7 +17,7 @@ export default class SandboxHandler {
   };
 
   private static getSandboxFiles() {
-    return new Folder(ENTRY).getFilteredFiles((file) =>
+    return new FolderFiles(ENTRY).getFilteredFiles((file) =>
       file.includes(`.${SANDBOX}.`)
     );
   }

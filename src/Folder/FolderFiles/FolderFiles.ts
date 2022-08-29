@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
-class Folder {
+class FolderFiles {
   private path: string;
 
   constructor(path: string) {
@@ -12,7 +12,7 @@ class Folder {
     return readdirSync(this.path).flatMap((File) => {
       const path = join(this.path, File);
       if (statSync(path).isDirectory()) {
-        return new Folder(path).files;
+        return new FolderFiles(path).files;
       }
       return path;
     });
@@ -22,4 +22,4 @@ class Folder {
     return this.files.filter(filter);
   }
 }
-export default Folder;
+export default FolderFiles;
