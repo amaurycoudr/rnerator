@@ -1,6 +1,6 @@
 import { before } from 'mocha';
 import { expect } from 'chai';
-import Folder from './Folder';
+import Folder from './FolderFiles';
 import { testClass } from '../utils/test';
 
 const mockFs = require('mock-fs');

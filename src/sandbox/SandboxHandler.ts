@@ -1,5 +1,5 @@
 import FileWriter from '../FileWriter/FileWriter';
-import Folder from '../Folder/Folder';
+import Folder from '../FolderFiles/FolderFiles';
 import { ENTRY, SANDBOX, SANDBOX_FILES } from '../utils/const';
 import getProjectExtension from '../utils/getProjectExtension';
 import { getPath } from '../utils/path';
