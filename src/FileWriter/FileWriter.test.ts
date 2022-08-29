@@ -58,5 +58,10 @@ describe(testClass(FileWriter), () => {
         .to.have.been.calledWithMatch('UPDATED')
         .calledWithMatch(path);
     });
+    it('should not log if options.silent is true', () => {
+      mock(emptySrc);
+      new FileWriter(path, content).write({ silent: true });
+      expect(console.log).not.to.have.been.called;
+    });
   });
 });

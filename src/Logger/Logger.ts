@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { LoggingKind } from '../type/type';
 
 export default class Logger {
-  public static logging = (path: string, type: LoggingKind) => {
+  public static log = (path: string, type: LoggingKind) => {
     this.configLoggingKind[type](path);
   };
 

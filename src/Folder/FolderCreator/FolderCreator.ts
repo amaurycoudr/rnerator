@@ -11,9 +11,9 @@ export default class FolderCreator {
   public createFolder = () => {
     if (!existsSync(this.path)) {
       mkdirSync(this.path);
-      Logger.logging(this.path, 'create');
+      Logger.log(this.path, 'create');
     } else {
-      Logger.logging(this.path, 'alreadyExists');
+      Logger.log(this.path, 'alreadyExists');
     }
   };
 }

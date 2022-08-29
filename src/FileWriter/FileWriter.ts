@@ -9,7 +9,7 @@ export default class FileWriter {
     return existsSync(this.path);
   }
 
-  private static loggingKind(existed: boolean) {
+  private static logKind(existed: boolean) {
     return existed ? 'update' : 'create';
   }
 
@@ -17,12 +17,23 @@ export default class FileWriter {
     execSync(`yarn run eslint --fix ${this.path} --ext .ts,.js,.tsx,.jsx`);
   }
 
+  private static defaultWritingOptions = {
+    lintAfterWriting: false,
+    silent: false,
+  };
+
   public write = (
-    config: { lintAfterWriting: boolean } = { lintAfterWriting: false }
+    options?: Partial<typeof FileWriter.defaultWritingOptions>
   ) => {
-    const existed = this.alreadyExists;
+    const { lintAfterWriting, silent } = {
+      ...FileWriter.defaultWritingOptions,
+      ...options,
+    };
+    const existedBefore = this.alreadyExists;
+
     writeFileSync(this.path, this.content);
-    if (config.lintAfterWriting) this.lintFile();
-    Logger.logging(this.path, FileWriter.loggingKind(existed));
+
+    if (lintAfterWriting) this.lintFile();
+    if (!silent) Logger.log(this.path, FileWriter.logKind(existedBefore));
   };
 }
