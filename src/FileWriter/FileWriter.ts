@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import { existsSync, writeFileSync } from 'fs';
 import Logger from '../Logger/Logger';
 
@@ -12,9 +13,16 @@ export default class FileWriter {
     return existed ? 'update' : 'create';
   }
 
-  public write = () => {
+  private lintFile() {
+    execSync(`yarn run eslint --fix ${this.path} --ignore-pattern **/*.json`);
+  }
+
+  public write = (
+    config: { lintAfterWriting: boolean } = { lintAfterWriting: true }
+  ) => {
     const existed = this.alreadyExists;
     writeFileSync(this.path, this.content);
+    if (config.lintAfterWriting) this.lintFile();
     Logger.logging(this.path, FileWriter.loggingKind(existed));
   };
 }
