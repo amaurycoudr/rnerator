@@ -4,16 +4,17 @@ import Logger from '../Logger/Logger';
 export default class FileWriter {
   constructor(private path: string, private content: string) {}
 
-  get alreadyExists() {
+  private get alreadyExists() {
     return existsSync(this.path);
   }
 
-  get loggingKind() {
-    return this.alreadyExists ? 'update' : 'create';
+  private static loggingKind(existed: boolean) {
+    return existed ? 'update' : 'create';
   }
 
   public write = () => {
+    const existed = this.alreadyExists;
     writeFileSync(this.path, this.content);
-    Logger.logging(this.path, this.loggingKind);
+    Logger.logging(this.path, FileWriter.loggingKind(existed));
   };
 }

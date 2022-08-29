@@ -13,7 +13,7 @@ export default class SandboxHandler {
     new FileWriter(
       getPath(SANDBOX, `${SANDBOX_FILES}.${getProjectExtension()}`),
       content
-    ).write('update');
+    ).write();
   };
 
   private static getSandboxFiles() {
