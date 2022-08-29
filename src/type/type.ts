@@ -1,5 +1,7 @@
-export type SandBoxInfo = {
+export type NamePath = {
   name: string;
-  location: string;
+  path: string;
 };
 export type Extension = 'js' | 'ts';
+
+export type LoggingKind = 'update' | 'create';

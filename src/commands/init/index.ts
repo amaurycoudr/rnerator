@@ -1,11 +1,12 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../const';
+import { COMPONENTS, ENTRY, SANDBOX, TEMPLATES } from '../../utils/const';
 import { createAndCopyFolder, createFolder } from '../../utils/folder';
 import { makeStepWithLog } from '../../utils/logger';
 import getTemplateContent from '../../init/templateContent';
 import { Extension } from '../../type/type';
 import getSandboxContent from '../../init/sandboxContent';
+import SandboxHandler from '../../sandbox/SandboxHandler';
 
 const gradient = require('gradient-string');
 
@@ -78,7 +79,10 @@ export default class Init extends Command {
         number: 4,
         total: Init.stepsNumber,
       },
-      () => createAndCopyFolder(SANDBOX, getSandboxContent(extension))
+      () => {
+        createAndCopyFolder(SANDBOX, getSandboxContent(extension));
+        SandboxHandler.generateSandboxFiles();
+      }
     );
   }
 }

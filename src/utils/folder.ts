@@ -7,9 +7,9 @@ import {
   writeFileSync,
 } from 'fs';
 import { join } from 'path';
-import { ENTRY } from '../const';
 
 import { getStyledError, logCreated, logSubStep, logUpdated } from './logger';
+import { getPath } from './path';
 
 export const createFolder = (
   path: string,
@@ -24,25 +24,24 @@ export const createFolder = (
   } else if (!silent) logSubStep(`${logName} folder already exists`);
 };
 
-const getPath = (name: string) => `${ENTRY}/${name}`;
-
 export const throwIfExists = (dir: string): void => {
   if (existsSync(dir)) {
     throw new Error(getStyledError(`${dir} already exists`));
   }
 };
 
-export const parseAFolder = (directory: string, files: string[]) => {
+export const getFolderFiles = (directory: string, files: string[]) => {
   readdirSync(directory).forEach((File) => {
-    const Absolute = join(directory, File);
-    if (statSync(Absolute).isDirectory()) return parseAFolder(Absolute, files);
-    return files.push(Absolute);
+    const path = join(directory, File);
+    if (statSync(path).isDirectory()) return getFolderFiles(path, files);
+    return files.push(path);
   });
 };
 
 const execEslint = (path: string) => {
   exec(`yarn run eslint --fix ${path} --ignore-pattern **/*.json`);
 };
+
 const writeFileAndLint = (file: string, content: string) => {
   writeFileSync(file, content);
   execEslint(file);

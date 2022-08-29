@@ -1,11 +1,13 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { existsSync, readdirSync } from 'fs';
-import { extname } from 'path';
-import { ENTRY, SANDBOX } from '../../const';
+import { SANDBOX } from '../../utils/const';
+import extension from '../../utils/getProjectExtension';
+import SandboxHandler from '../../sandbox/SandboxHandler';
+
 import { createFolder, throwIfExists } from '../../utils/folder';
 import { getCreated, getUpdated } from '../../utils/logger';
-import { updateSandboxFiles } from '../../utils/sandbox';
+import { getPath } from '../../utils/path';
+
 import {
   createFileFromTemplate,
   errorTemplateNotFound,
@@ -52,15 +54,6 @@ export default class Generate extends Command {
     }),
   };
 
-  static get extension() {
-    const pathToSandbox = `${ENTRY}/${SANDBOX}`;
-    if (!existsSync(pathToSandbox)) {
-      throw new Error(`${pathToSandbox} does not exist`);
-    }
-    const files = readdirSync(pathToSandbox);
-    return extname(files[0]).includes('js') ? 'js' : 'ts';
-  }
-
   async run(): Promise<void> {
     const {
       folderName,
@@ -83,12 +76,12 @@ export default class Generate extends Command {
       await createFileFromTemplate(
         { name },
         'index',
-        `${folderName}/index.${Generate.extension}x`
+        `${folderName}/index.${extension()}x`
       );
     }
     if (!sandboxDisabled) {
       await createFileFromTemplate({ name }, 'sandbox', sandboxPath);
-      updateSandboxFiles();
+      SandboxHandler.generateSandboxFiles();
     }
   }
 
@@ -119,11 +112,11 @@ export default class Generate extends Command {
       sandboxDisabled: defaultSandboxDisabled,
     } = await this.getTemplateConfig();
 
-    const originFolder = `${ENTRY}/${location ?? defaultLocation}`;
+    const originFolder = getPath(location ?? defaultLocation);
 
     const folderName = `${originFolder}/${name}`;
-    const fileName = `${folderName}/${name}.${Generate.extension}x`;
-    const sandboxPath = `${folderName}/${name}.${SANDBOX}.${Generate.extension}x`;
+    const fileName = `${folderName}/${name}.${extension()}x`;
+    const sandboxPath = `${folderName}/${name}.${SANDBOX}.${extension()}x`;
 
     return {
       folderName,

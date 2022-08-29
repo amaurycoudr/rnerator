@@ -1,6 +1,6 @@
 import { Command } from '@oclif/core';
 import chalk from 'chalk';
-import { updateSandboxFiles } from '../../utils/sandbox';
+import SandboxHandler from '../../sandbox/SandboxHandler';
 
 export default class Sandbox extends Command {
   static description = 'Generate the sandboxFiles.ts file';
@@ -8,7 +8,7 @@ export default class Sandbox extends Command {
   static examples = [`$ rnerator sandbox`];
 
   async run() {
-    updateSandboxFiles();
+    SandboxHandler.generateSandboxFiles();
     this.log(`${chalk.green('⭐ Finished ⭐')}`);
   }
 }
