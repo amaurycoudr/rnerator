@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import SandboxFile from './SandboxFile';
 
-import { shouldReturnFor, testClass } from '../utils/test';
+import { shouldReturnFor, testClass } from '../../utils/test';
 
 const TestSandboxString =
   '{name:"Test",location:"../components/Test.sandbox.jsx",component: require("../components/Test.sandbox.jsx").default}';

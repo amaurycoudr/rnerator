@@ -1,6 +1,6 @@
-import { Extension } from '../type/type';
-import { getNoTextIfJs } from '../utils/string';
-import SandboxFile from './SandboxFile';
+import { Extension } from '../../type/type';
+import { getNoTextIfJs } from '../../utils/string';
+import SandboxFile from '../SandboxFile/SandboxFile';
 
 class SandboxFilesContent {
   private sandboxString: SandboxFile[];

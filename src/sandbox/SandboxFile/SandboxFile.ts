@@ -1,7 +1,7 @@
 import { pipe } from 'ramda';
-import { ENTRY, SANDBOX } from '../utils/const';
-import { NamePath } from '../type/type';
-import JsTsFile from '../JsTsFile/JsTsFile';
+import { ENTRY, SANDBOX } from '../../utils/const';
+import { NamePath } from '../../type/type';
+import JsTsFile from '../../JsTsFile/JsTsFile';
 
 class SandboxFile extends JsTsFile {
   constructor(path: string) {

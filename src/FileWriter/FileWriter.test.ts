@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { expect, use } from 'chai';
 import { existsSync, readFileSync } from 'fs';

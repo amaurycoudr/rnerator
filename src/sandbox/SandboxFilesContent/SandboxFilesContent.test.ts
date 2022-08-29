@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { expect } from 'chai';
-import { shouldReturnFor, testClass } from '../utils/test';
+import { shouldReturnFor, testClass } from '../../utils/test';
 import SandboxFilesContent from './SandboxFilesContent';
 
 export const emptySandboxFilesContentTS =

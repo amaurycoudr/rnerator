@@ -1,6 +1,6 @@
 import { Command } from '@oclif/core';
 import chalk from 'chalk';
-import SandboxHandler from '../../sandbox/SandboxHandler';
+import SandboxHandler from '../../Sandbox/SandboxHandler';
 
 export default class Sandbox extends Command {
   static description = 'Generate the sandboxFiles.ts file';
