@@ -4,4 +4,4 @@ export type NamePath = {
 };
 export type Extension = 'js' | 'ts';
 
-export type LoggingKind = 'update' | 'create';
+export type LoggingKind = 'update' | 'create' | 'alreadyExists';

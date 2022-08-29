@@ -14,6 +14,10 @@ export default class Logger {
     this.logSubStep(`${chalk.green('CREATED')} ${path}`);
   };
 
+  private static logAlreadyExists = (path: string) => {
+    this.logSubStep(`${chalk.grey('ALREADY EXISTS')} ${path}`);
+  };
+
   private static logSubStep = (stepName: string) => {
     console.log(` ->  ${stepName}`);
   };
@@ -21,5 +25,6 @@ export default class Logger {
   private static configLoggingKind = {
     update: this.logUpdated,
     create: this.logCreated,
+    alreadyExists: this.logAlreadyExists,
   };
 }

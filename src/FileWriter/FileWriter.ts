@@ -18,7 +18,7 @@ export default class FileWriter {
   }
 
   public write = (
-    config: { lintAfterWriting: boolean } = { lintAfterWriting: true }
+    config: { lintAfterWriting: boolean } = { lintAfterWriting: false }
   ) => {
     const existed = this.alreadyExists;
     writeFileSync(this.path, this.content);
