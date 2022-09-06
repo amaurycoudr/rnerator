@@ -1,3 +1,1 @@
-import { ENTRY } from './const';
-
-export const getPath = (...name: string[]) => `${ENTRY}/${name.join('/')}`;
+export const getPath = (...name: string[]) => `${name.join('/')}`;

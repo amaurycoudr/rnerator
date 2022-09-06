@@ -14,7 +14,15 @@ export default class FileWriter {
   }
 
   private lintFile() {
-    execSync(`yarn run eslint --fix ${this.path} --ext .ts,.js,.tsx,.jsx`);
+    Logger.logPath(this.path, 'lint');
+
+    try {
+      execSync(
+        `yarn run eslint --quiet --fix ${this.path} --ignore-pattern **/*.json`
+      );
+    } catch (e) {
+      // we don't want to stop the process if linting fails
+    }
   }
 
   private static defaultWritingOptions = {
@@ -36,6 +44,6 @@ export default class FileWriter {
 
     if (lintAfterWriting) this.lintFile();
 
-    if (!silent) Logger.log(this.path, FileWriter.logKind(existedBefore));
+    if (!silent) Logger.logPath(this.path, FileWriter.logKind(existedBefore));
   };
 }

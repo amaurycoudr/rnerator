@@ -1,4 +1,5 @@
 import FileWriter from '../../FileWriter/FileWriter';
+import { getPath } from '../../utils/path';
 import FolderCreator from '../FolderCreator/FolderCreator';
 
 export default class FolderHandler {
@@ -17,8 +18,8 @@ export default class FolderHandler {
   };
 
   private createFolderContent = () => {
-    Object.entries(this.folderContent).forEach(([path, content]) => {
-      new FileWriter(path, content).write({
+    Object.entries(this.folderContent).forEach(([fileName, content]) => {
+      new FileWriter(getPath(this.path, fileName), content).write({
         silent: true,
         lintAfterWriting: true,
       });

@@ -11,9 +11,11 @@ export default class SandboxHandler {
     const content = this.generateSandboxFilesContent(files);
 
     new FileWriter(
-      getPath(SANDBOX, `${SANDBOX_FILES}.${getProjectExtension()}`),
+      getPath(ENTRY, SANDBOX, `${SANDBOX_FILES}.${getProjectExtension()}`),
       content
-    ).write();
+    ).write({
+      lintAfterWriting: true,
+    });
   };
 
   private static getSandboxFiles() {

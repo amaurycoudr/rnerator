@@ -18,7 +18,7 @@ return (
 export default App;
 `;
 
-const home = (extension: Extension) => {
+const homeScreen = (extension: Extension) => {
   const textIfTs = getNoTextIfJs(extension);
   return `import * as React from 'react';
 import {
@@ -26,7 +26,7 @@ import {
   Text,
   View,
   FlatList,
- ${textIfTs('ListRenderItem')}
+ ${textIfTs('ListRenderItem,')}
   StyleSheet,
 } from 'react-native';
 import data from './sandboxFiles';
@@ -72,7 +72,7 @@ export default HomeScreen;
 };
 const navigator = `import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './Home';
+import HomeScreen from './HomeScreen';
 import data from './sandboxFiles';
 const Stack = createNativeStackNavigator();
 const Navigator = () => {
@@ -107,7 +107,7 @@ const getSandboxContent = (extension: Extension = 'ts') => {
 
   return {
     [getReactFileName('App')]: app,
-    [getReactFileName('Home')]: home(extension),
+    [getReactFileName('HomeScreen')]: homeScreen(extension),
     [getReactFileName('Navigator')]: navigator,
     [getReactFileName('Wrapper')]: wrapper(extension),
   };

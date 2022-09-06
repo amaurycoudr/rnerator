@@ -7,6 +7,7 @@ import {
   writeFileSync,
 } from 'fs';
 import { join } from 'path';
+import { ENTRY } from './const';
 
 import { getStyledError, logCreated, logSubStep, logUpdated } from './logger';
 import { getPath } from './path';
@@ -68,6 +69,6 @@ export const createAndCopyFolder = (
   name: string,
   content: Record<string, string>
 ) => {
-  createFolder(getPath(name));
-  generateFilesFromConfig(getPath(name), content);
+  createFolder(getPath(ENTRY, name));
+  generateFilesFromConfig(getPath(ENTRY, name), content);
 };

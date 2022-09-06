@@ -1,6 +1,6 @@
 import { Command, Flags } from '@oclif/core';
 import chalk from 'chalk';
-import { SANDBOX } from '../../utils/const';
+import { ENTRY, SANDBOX } from '../../utils/const';
 import extension from '../../utils/getProjectExtension';
 import SandboxHandler from '../../Sandbox/SandboxHandler/SandboxHandler';
 
@@ -112,7 +112,7 @@ export default class Generate extends Command {
       sandboxDisabled: defaultSandboxDisabled,
     } = await this.getTemplateConfig();
 
-    const originFolder = getPath(location ?? defaultLocation);
+    const originFolder = getPath(ENTRY, location ?? defaultLocation);
 
     const folderName = `${originFolder}/${name}`;
     const fileName = `${folderName}/${name}.${extension()}x`;
