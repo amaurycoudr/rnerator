@@ -4073,10 +4073,10 @@ graceful-fs@~4.1.11:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
   integrity sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
 
-gradient-string@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/gradient-string/-/gradient-string-2.0.1.tgz#ea21740ce8fc0beaac16888ee60f6732985b4c83"
-  integrity sha512-+xDOYR2fMa4QHGysTgyQsl8g16mcAKqvvsKI014qYP2XVf1SWUPlD8KhdBJPUM8AVwDUB+ls0NFkqRzAB5URkA==
+gradient-string@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/gradient-string/-/gradient-string-2.0.2.tgz#a90402618990ec993ecbb72a56bd7e6598f45c0e"
+  integrity sha512-rEDCuqUQ4tbD78TpzsMtt5OIf0cBCSDWSJtUDaF6JsAh+k0v9r++NzxNEG87oDZx9ZwGhD8DaezR2L/yrw0Jdw==
   dependencies:
     chalk "^4.1.2"
     tinygradient "^1.1.5"
