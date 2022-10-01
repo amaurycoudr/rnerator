@@ -46,7 +46,7 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-node": "^4.1.0",
     "eslint-config-oclif": "^4",
-    "eslint-config-oclif-typescript": "^1.0.2",
+    "eslint-config-oclif-typescript": "^1.0.3",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-node": "^11.1.0",
