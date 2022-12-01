@@ -34,7 +34,7 @@
     "@types/mocha": "^9.1.1",
     "@types/mock-fs": "^4.13.1",
     "@types/node": "^18.7.15",
-    "@types/ramda": "^0.28.15",
+    "@types/ramda": "^0.28.20",
     "@types/sinon": "^10.0.13",
     "@types/sinon-chai": "^3.2.8",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
